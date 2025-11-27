@@ -1,0 +1,44 @@
+[[entries."src/Config.php".issues]]
+code = "cyclomatic-complexity"
+start_line = 10
+end_line = 181
+
+[[entries."src/Config.php".issues]]
+code = "no-boolean-flag-parameter"
+start_line = 126
+end_line = 126
+
+[[entries."src/Config.php".issues]]
+code = "no-else-clause"
+start_line = 171
+end_line = 178
+
+[[entries."src/YamlParser.php".issues]]
+code = "cyclomatic-complexity"
+start_line = 12
+end_line = 127
+
+[[entries."src/YamlParser.php".issues]]
+code = "no-else-clause"
+start_line = 81
+end_line = 88
+
+[[entries."src/YamlParser.php".issues]]
+code = "no-else-clause"
+start_line = 102
+end_line = 109
+
+[[entries."src/YamlParser.php".issues]]
+code = "prefer-early-continue"
+start_line = 84
+end_line = 86
+
+[[entries."tests/src/ConfigTest.php".issues]]
+code = "prefer-early-continue"
+start_line = 86
+end_line = 88
+
+[[entries."tests/src/ConfigTest.php".issues]]
+code = "too-many-methods"
+start_line = 19
+end_line = 296

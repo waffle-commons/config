@@ -1,0 +1,94 @@
+[[entries."src/Config.php".issues]]
+code = "missing-override-attribute"
+start_line = 57
+end_line = 57
+
+[[entries."src/Config.php".issues]]
+code = "missing-override-attribute"
+start_line = 80
+end_line = 80
+
+[[entries."src/Config.php".issues]]
+code = "missing-override-attribute"
+start_line = 103
+end_line = 103
+
+[[entries."src/Config.php".issues]]
+code = "missing-override-attribute"
+start_line = 126
+end_line = 126
+
+[[entries."tests/src/AbstractTestCase.php".issues]]
+code = "invalid-method-access"
+start_line = 59
+end_line = 59
+
+[[entries."tests/src/AbstractTestCase.php".issues]]
+code = "invalid-method-access"
+start_line = 60
+end_line = 60
+
+[[entries."tests/src/AbstractTestCase.php".issues]]
+code = "mixed-argument"
+start_line = 60
+end_line = 60
+
+[[entries."tests/src/AbstractTestCase.php".issues]]
+code = "mixed-operand"
+start_line = 38
+end_line = 38
+
+[[entries."tests/src/ConfigTest.php".issues]]
+code = "mixed-argument"
+start_line = 86
+end_line = 86
+
+[[entries."tests/src/ConfigTest.php".issues]]
+code = "mixed-argument"
+start_line = 87
+end_line = 87
+
+[[entries."tests/src/ConfigTest.php".issues]]
+code = "mixed-assignment"
+start_line = 85
+end_line = 85
+
+[[entries."tests/src/ConfigTest.php".issues]]
+code = "mixed-assignment"
+start_line = 265
+end_line = 265
+
+[[entries."tests/src/ConfigTest.php".issues]]
+code = "mixed-assignment"
+start_line = 268
+end_line = 268
+
+[[entries."tests/src/ConfigTest.php".issues]]
+code = "mixed-assignment"
+start_line = 271
+end_line = 271
+
+[[entries."tests/src/Trait/ParserTraitTest.php".issues]]
+code = "ambiguous-object-method-access"
+start_line = 69
+end_line = 69
+
+[[entries."tests/src/YamlParserTest.php".issues]]
+code = "invalid-property-assignment-value"
+start_line = 185
+end_line = 185
+
+[[entries."tests/src/YamlParserTest.php".issues]]
+code = "invalid-return-statement"
+start_line = 187
+end_line = 187
+
+[[entries."tests/src/YamlParserTest.php".issues]]
+code = "nullable-return-statement"
+start_line = 187
+end_line = 187
+
+[[entries."tests/src/YamlParserTest.php".issues]]
+code = "possibly-null-argument"
+start_line = 186
+end_line = 186
