@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Waffle\Commons\Config;
 
+use JetBrains\PhpStorm\Deprecated;
 use Waffle\Commons\Contracts\Parser\YamlParserInterface;
 
 /**
  * A very simple, native YAML file parser.
  * It supports basic key-value pairs, nesting, and lists.
  */
+#[Deprecated]
 final class YamlParser implements YamlParserInterface
 {
     /**
