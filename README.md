@@ -27,11 +27,14 @@ use Waffle\Commons\Config\Config;
 // Initialize Config with the path to your configuration directory and current environment
 $config = new Config('/path/to/config/dir', 'prod');
 
-// Retrieve a value (supports dot notation)
-$dbHost = $config->get('database.host');
+// Retrieve a string value
+$dbHost = $config->getString('database.host');
 
-// Retrieve with a default value
-$debug = $config->get('app.debug', false);
+// Retrieve an integer with a default value
+$port = $config->getInt('database.port', 3306);
+
+// Retrieve a boolean
+$debug = $config->getBool('app.debug', false);
 ```
 
 ### Environment Variables
@@ -48,3 +51,22 @@ database:
 ### Environment Specifics
 
 The loader automatically merges `app.yaml` with `app_{env}.yaml`. For example, if your environment is `prod`, it will load `app.yaml` and then override values with `app_prod.yaml`.
+
+Testing
+-------
+
+To run the tests, use the following command:
+
+```bash
+composer tests
+```
+
+Contributing
+------------
+
+Contributions are welcome! Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+
+License
+-------
+
+This project is licensed under the MIT License. See the [LICENSE.md](./LICENSE.md) file for details.
