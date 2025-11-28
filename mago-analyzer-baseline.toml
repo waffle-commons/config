@@ -1,99 +1,139 @@
-[[entries."src/Config.php".issues]]
-code = "missing-override-attribute"
-start_line = 57
-end_line = 57
+variant = "loose"
 
-[[entries."src/Config.php".issues]]
-code = "missing-override-attribute"
-start_line = 80
-end_line = 80
+[[issues]]
+file = "src/Config.php"
+code = "non-existent-class-like"
+message = 'Class `Waffle\Commons\Config\Config` cannot implement unknown type `ConfigInterface`'
+count = 1
 
-[[entries."src/Config.php".issues]]
-code = "missing-override-attribute"
-start_line = 103
-end_line = 103
+[[issues]]
+file = "src/Exception/InvalidConfigurationException.php"
+code = "non-existent-class-like"
+message = 'Class `Waffle\Commons\Config\Exception\InvalidConfigurationException` cannot implement unknown type `InvalidConfigurationExceptionInterface`'
+count = 1
 
-[[entries."src/Config.php".issues]]
-code = "missing-override-attribute"
-start_line = 126
-end_line = 126
+[[issues]]
+file = "src/YamlParser.php"
+code = "invalid-override-attribute"
+message = 'Invalid `#[Override]` attribute on `Waffle\Commons\Config\YamlParser::parsefile`.'
+count = 1
 
-[[entries."src/YamlParser.php".issues]]
+[[issues]]
+file = "src/YamlParser.php"
 code = "non-existent-attribute-class"
-start_line = 13
-end_line = 13
+message = 'Attribute class `JetBrains\PhpStorm\Deprecated` not found or could not be autoloaded.'
+count = 1
 
-[[entries."tests/src/AbstractTestCase.php".issues]]
+[[issues]]
+file = "src/YamlParser.php"
+code = "non-existent-class-like"
+message = 'Class `Waffle\Commons\Config\YamlParser` cannot implement unknown type `YamlParserInterface`'
+count = 1
+
+[[issues]]
+file = "tests/src/AbstractTestCase.php"
 code = "invalid-method-access"
-start_line = 59
-end_line = 59
+message = "Attempting to access a method on a non-object type (`string`)."
+count = 3
 
-[[entries."tests/src/AbstractTestCase.php".issues]]
-code = "invalid-method-access"
-start_line = 60
-end_line = 60
-
-[[entries."tests/src/AbstractTestCase.php".issues]]
+[[issues]]
+file = "tests/src/AbstractTestCase.php"
 code = "mixed-argument"
-start_line = 60
-end_line = 60
+message = "Invalid argument type for argument #1 of `rmdir`: expected `string`, but found `mixed`."
+count = 1
 
-[[entries."tests/src/AbstractTestCase.php".issues]]
+[[issues]]
+file = "tests/src/AbstractTestCase.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `unlink`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "tests/src/AbstractTestCase.php"
 code = "mixed-operand"
-start_line = 38
-end_line = 38
+message = "Invalid left operand: type `mixed` cannot be reliably used in string concatenation."
+count = 1
 
-[[entries."tests/src/ConfigTest.php".issues]]
-code = "mixed-argument"
-start_line = 86
-end_line = 86
+[[issues]]
+file = "tests/src/AbstractTestCase.php"
+code = "non-existent-class-like"
+message = 'Class, interface, enum, or trait `Waffle\Commons\Contracts\Enum\Failsafe` not found.'
+count = 1
 
-[[entries."tests/src/ConfigTest.php".issues]]
-code = "mixed-argument"
-start_line = 87
-end_line = 87
-
-[[entries."tests/src/ConfigTest.php".issues]]
-code = "mixed-assignment"
-start_line = 85
-end_line = 85
-
-[[entries."tests/src/ConfigTest.php".issues]]
-code = "mixed-assignment"
-start_line = 265
-end_line = 265
-
-[[entries."tests/src/ConfigTest.php".issues]]
-code = "mixed-assignment"
-start_line = 268
-end_line = 268
-
-[[entries."tests/src/ConfigTest.php".issues]]
-code = "mixed-assignment"
-start_line = 271
-end_line = 271
-
-[[entries."tests/src/Trait/ParserTraitTest.php".issues]]
-code = "ambiguous-object-method-access"
-start_line = 69
-end_line = 69
-
-[[entries."tests/src/YamlParserTest.php".issues]]
+[[issues]]
+file = "tests/src/ConfigTest.php"
 code = "invalid-property-assignment-value"
-start_line = 185
-end_line = 185
+message = 'Invalid type for property `$systemMock`: expected `unknown-ref(Waffle\Commons\Contracts\System\SystemInterface)`, but got `PHPUnit\Framework\MockObject\MockObject&Waffle\Commons\Contracts\System\SystemInterface`.'
+count = 1
 
-[[entries."tests/src/YamlParserTest.php".issues]]
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "invalid-property-assignment-value"
+message = 'Invalid type for property `$yamlParserMock`: expected `unknown-ref(Waffle\Commons\Contracts\Parser\YamlParserInterface)`, but got `PHPUnit\Framework\MockObject\MockObject&Waffle\Commons\Contracts\Parser\YamlParserInterface`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `file_exists`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `unlink`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 4
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "no-value"
+message = 'Argument #1 passed to method `waffletests\commons\config\abstracttestcase::createandgetconfig` has type `never`, meaning it cannot produce a value.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "no-value"
+message = 'Argument #3 passed to method `waffle\commons\config\config::__construct` has type `never`, meaning it cannot produce a value.'
+count = 2
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "non-existent-class-like"
+message = 'Class, interface, enum, or trait `Waffle\Commons\Contracts\Enum\Failsafe` not found.'
+count = 3
+
+[[issues]]
+file = "tests/src/Trait/ParserTraitTest.php"
+code = "ambiguous-object-method-access"
+message = "Cannot statically verify method call on a generic `object` type."
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "invalid-property-assignment-value"
+message = "Invalid type for property `$tempFile`: expected `null|string`, but got `false|string`."
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
 code = "invalid-return-statement"
-start_line = 187
-end_line = 187
+message = 'Invalid return type for function `waffletests\commons\config\yamlparsertest::createtempfile`: expected `string`, but found `null|string`.'
+count = 1
 
-[[entries."tests/src/YamlParserTest.php".issues]]
+[[issues]]
+file = "tests/src/YamlParserTest.php"
 code = "nullable-return-statement"
-start_line = 187
-end_line = 187
+message = 'Function `waffletests\commons\config\yamlparsertest::createtempfile` is declared to return `string` but possibly returns a nullable value (inferred as `null|string`).'
+count = 1
 
-[[entries."tests/src/YamlParserTest.php".issues]]
+[[issues]]
+file = "tests/src/YamlParserTest.php"
 code = "possibly-null-argument"
-start_line = 186
-end_line = 186
+message = "Argument #1 of function `file_put_contents` is possibly `null`, but parameter type `string` does not accept it."
+count = 1

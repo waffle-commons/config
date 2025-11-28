@@ -1,44 +1,49 @@
-[[entries."src/Config.php".issues]]
-code = "cyclomatic-complexity"
-start_line = 10
-end_line = 181
+variant = "loose"
 
-[[entries."src/Config.php".issues]]
+[[issues]]
+file = "src/Config.php"
+code = "cyclomatic-complexity"
+message = "Class has high complexity."
+count = 1
+
+[[issues]]
+file = "src/Config.php"
 code = "no-boolean-flag-parameter"
-start_line = 126
-end_line = 126
+message = "Avoid boolean flag parameters."
+count = 1
 
-[[entries."src/Config.php".issues]]
+[[issues]]
+file = "src/Config.php"
 code = "no-else-clause"
-start_line = 171
-end_line = 178
+message = "Avoid `elseif` clauses."
+count = 1
 
-[[entries."src/YamlParser.php".issues]]
+[[issues]]
+file = "src/YamlParser.php"
 code = "cyclomatic-complexity"
-start_line = 13
-end_line = 129
+message = "Class has high complexity."
+count = 1
 
-[[entries."src/YamlParser.php".issues]]
+[[issues]]
+file = "src/YamlParser.php"
 code = "no-else-clause"
-start_line = 83
-end_line = 90
+message = "Avoid `elseif` clauses."
+count = 2
 
-[[entries."src/YamlParser.php".issues]]
-code = "no-else-clause"
-start_line = 104
-end_line = 111
-
-[[entries."src/YamlParser.php".issues]]
+[[issues]]
+file = "src/YamlParser.php"
 code = "prefer-early-continue"
-start_line = 86
-end_line = 88
+message = "Consider using early continue pattern to reduce nesting."
+count = 1
 
-[[entries."tests/src/ConfigTest.php".issues]]
+[[issues]]
+file = "tests/src/ConfigTest.php"
 code = "prefer-early-continue"
-start_line = 86
-end_line = 88
+message = "Consider using early continue pattern to reduce nesting."
+count = 1
 
-[[entries."tests/src/ConfigTest.php".issues]]
+[[issues]]
+file = "tests/src/ConfigTest.php"
 code = "too-many-methods"
-start_line = 19
-end_line = 296
+message = "Class has too many methods."
+count = 1
