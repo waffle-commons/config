@@ -15,23 +15,23 @@ end_line = 178
 
 [[entries."src/YamlParser.php".issues]]
 code = "cyclomatic-complexity"
-start_line = 12
-end_line = 127
+start_line = 13
+end_line = 129
 
 [[entries."src/YamlParser.php".issues]]
 code = "no-else-clause"
-start_line = 81
-end_line = 88
+start_line = 83
+end_line = 90
 
 [[entries."src/YamlParser.php".issues]]
 code = "no-else-clause"
-start_line = 102
-end_line = 109
+start_line = 104
+end_line = 111
 
 [[entries."src/YamlParser.php".issues]]
 code = "prefer-early-continue"
-start_line = 84
-end_line = 86
+start_line = 86
+end_line = 88
 
 [[entries."tests/src/ConfigTest.php".issues]]
 code = "prefer-early-continue"

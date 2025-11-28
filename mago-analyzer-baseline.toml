@@ -18,6 +18,11 @@ code = "missing-override-attribute"
 start_line = 126
 end_line = 126
 
+[[entries."src/YamlParser.php".issues]]
+code = "non-existent-attribute-class"
+start_line = 13
+end_line = 13
+
 [[entries."tests/src/AbstractTestCase.php".issues]]
 code = "invalid-method-access"
 start_line = 59
