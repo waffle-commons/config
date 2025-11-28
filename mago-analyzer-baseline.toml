@@ -2,20 +2,32 @@ variant = "loose"
 
 [[issues]]
 file = "src/Config.php"
-code = "non-existent-class-like"
-message = 'Class `Waffle\Commons\Config\Config` cannot implement unknown type `ConfigInterface`'
+code = "missing-override-attribute"
+message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Config\Config::getArray`.'
 count = 1
 
 [[issues]]
-file = "src/Exception/InvalidConfigurationException.php"
-code = "non-existent-class-like"
-message = 'Class `Waffle\Commons\Config\Exception\InvalidConfigurationException` cannot implement unknown type `InvalidConfigurationExceptionInterface`'
+file = "src/Config.php"
+code = "missing-override-attribute"
+message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Config\Config::getBool`.'
+count = 1
+
+[[issues]]
+file = "src/Config.php"
+code = "missing-override-attribute"
+message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Config\Config::getInt`.'
+count = 1
+
+[[issues]]
+file = "src/Config.php"
+code = "missing-override-attribute"
+message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Config\Config::getString`.'
 count = 1
 
 [[issues]]
 file = "src/YamlParser.php"
-code = "invalid-override-attribute"
-message = 'Invalid `#[Override]` attribute on `Waffle\Commons\Config\YamlParser::parsefile`.'
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `waffle\commons\config\yamlparser::parselines`. Saw type `mixed`.'
 count = 1
 
 [[issues]]
@@ -25,16 +37,10 @@ message = 'Attribute class `JetBrains\PhpStorm\Deprecated` not found or could no
 count = 1
 
 [[issues]]
-file = "src/YamlParser.php"
-code = "non-existent-class-like"
-message = 'Class `Waffle\Commons\Config\YamlParser` cannot implement unknown type `YamlParserInterface`'
-count = 1
-
-[[issues]]
 file = "tests/src/AbstractTestCase.php"
 code = "invalid-method-access"
 message = "Attempting to access a method on a non-object type (`string`)."
-count = 3
+count = 5
 
 [[issues]]
 file = "tests/src/AbstractTestCase.php"
@@ -55,24 +61,6 @@ message = "Invalid left operand: type `mixed` cannot be reliably used in string 
 count = 1
 
 [[issues]]
-file = "tests/src/AbstractTestCase.php"
-code = "non-existent-class-like"
-message = 'Class, interface, enum, or trait `Waffle\Commons\Contracts\Enum\Failsafe` not found.'
-count = 1
-
-[[issues]]
-file = "tests/src/ConfigTest.php"
-code = "invalid-property-assignment-value"
-message = 'Invalid type for property `$systemMock`: expected `unknown-ref(Waffle\Commons\Contracts\System\SystemInterface)`, but got `PHPUnit\Framework\MockObject\MockObject&Waffle\Commons\Contracts\System\SystemInterface`.'
-count = 1
-
-[[issues]]
-file = "tests/src/ConfigTest.php"
-code = "invalid-property-assignment-value"
-message = 'Invalid type for property `$yamlParserMock`: expected `unknown-ref(Waffle\Commons\Contracts\Parser\YamlParserInterface)`, but got `PHPUnit\Framework\MockObject\MockObject&Waffle\Commons\Contracts\Parser\YamlParserInterface`.'
-count = 1
-
-[[issues]]
 file = "tests/src/ConfigTest.php"
 code = "mixed-argument"
 message = "Invalid argument type for argument #1 of `file_exists`: expected `string`, but found `mixed`."
@@ -89,24 +77,6 @@ file = "tests/src/ConfigTest.php"
 code = "mixed-assignment"
 message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
 count = 4
-
-[[issues]]
-file = "tests/src/ConfigTest.php"
-code = "no-value"
-message = 'Argument #1 passed to method `waffletests\commons\config\abstracttestcase::createandgetconfig` has type `never`, meaning it cannot produce a value.'
-count = 1
-
-[[issues]]
-file = "tests/src/ConfigTest.php"
-code = "no-value"
-message = 'Argument #3 passed to method `waffle\commons\config\config::__construct` has type `never`, meaning it cannot produce a value.'
-count = 2
-
-[[issues]]
-file = "tests/src/ConfigTest.php"
-code = "non-existent-class-like"
-message = 'Class, interface, enum, or trait `Waffle\Commons\Contracts\Enum\Failsafe` not found.'
-count = 3
 
 [[issues]]
 file = "tests/src/Trait/ParserTraitTest.php"
