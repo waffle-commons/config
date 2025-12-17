@@ -21,7 +21,7 @@ final class YamlParser implements YamlParserInterface
     #[\Override]
     public function parseFile(string $path): array
     {
-        set_error_handler(function ($severity, $message, $_file, $_line) {
+        set_error_handler(static function ($severity, $message, $_file, $_line) {
             throw new InvalidConfigurationException($message, $severity);
         });
 

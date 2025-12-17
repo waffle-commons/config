@@ -9,8 +9,6 @@ use ReflectionClass;
 use Waffle\Commons\Config\Config;
 use Waffle\Commons\Config\Exception\InvalidConfigurationException;
 use Waffle\Commons\Contracts\Enum\Failsafe;
-use Waffle\Commons\Contracts\Parser\YamlParserInterface;
-use Waffle\Commons\Contracts\System\SystemInterface;
 use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 
 // Added for testing protected method
@@ -79,9 +77,11 @@ class ConfigTest extends TestCase
         }
         // Clean up any other temp files created directly in tests
         foreach ($this->tempFilesCreated as $file) {
-            if (file_exists($file)) {
-                unlink($file);
+            if (!file_exists($file)) {
+                continue;
             }
+
+            unlink($file);
         }
 
         parent::tearDown();

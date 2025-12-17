@@ -55,6 +55,7 @@ class Config implements ConfigInterface
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function getInt(string $key, null|int $default = null): null|int
     {
         /** @var array|string|int|bool|null $value */
@@ -78,6 +79,7 @@ class Config implements ConfigInterface
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function getString(string $key, null|string $default = null): null|string
     {
         /** @var array|string|int|bool|null $value */
@@ -101,6 +103,7 @@ class Config implements ConfigInterface
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function getArray(string $key, null|array $default = null): null|array
     {
         /** @var array|string|int|bool|null $value */
@@ -124,6 +127,7 @@ class Config implements ConfigInterface
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function getBool(string $key, bool $default = false): bool
     {
         /** @var array|string|int|bool|null $value */
