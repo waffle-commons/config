@@ -28,18 +28,18 @@ final class YamlParser implements YamlParserInterface
         $config = [];
         try {
             if (!is_readable($path) || !is_file($path)) {
-                throw new RuntimeException("Failed to parse YAML file.");
+                throw new RuntimeException('Failed to parse YAML file.');
             }
 
             $lines = file($path, FILE_IGNORE_NEW_LINES);
             if (!$lines) {
-                throw new RuntimeException("Failed to parse YAML file.");
+                throw new RuntimeException('Failed to parse YAML file.');
             }
 
             $config = yaml_parse_file(filename: $path);
 
             if (!$config) {
-                throw new RuntimeException("Failed to parse YAML file.");
+                throw new RuntimeException('Failed to parse YAML file.');
             }
         } catch (Throwable $_) {
             return [];
