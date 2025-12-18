@@ -9,14 +9,14 @@ use RuntimeException;
 final readonly class DotEnv
 {
     public function __construct(
-        private string $path
+        private string $path,
     ) {}
 
     public function load(): void
     {
         $files = [
             $this->path . '/.env',
-            $this->path . '/.env.local'
+            $this->path . '/.env.local',
         ];
 
         foreach ($files as $file) {
