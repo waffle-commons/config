@@ -8,7 +8,7 @@ use Waffle\Commons\Config\Exception\InvalidConfigurationException;
 use Waffle\Commons\Contracts\Config\ConfigInterface;
 use Waffle\Commons\Contracts\Enum\Failsafe;
 
-class Config implements ConfigInterface
+final class Config implements ConfigInterface
 {
     private array $parameters = [];
 
