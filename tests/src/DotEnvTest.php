@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace WaffleTests\Commons\Config;
 
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use Waffle\Commons\Config\DotEnv;
 
 #[CoversClass(DotEnv::class)]
@@ -43,7 +43,7 @@ class DotEnvTest extends TestCase
     {
         $files = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::CHILD_FIRST
+            \RecursiveIteratorIterator::CHILD_FIRST,
         );
 
         foreach ($files as $fileinfo) {
@@ -55,7 +55,7 @@ class DotEnvTest extends TestCase
 
     public function testLoadReadsDotEnvFile(): void
     {
-        file_put_contents($this->tempDir . '/.env', "TEST_VAR=foo");
+        file_put_contents($this->tempDir . '/.env', 'TEST_VAR=foo');
 
         $dotEnv = new DotEnv($this->tempDir);
         $dotEnv->load();
@@ -67,7 +67,7 @@ class DotEnvTest extends TestCase
 
     public function testLoadReadsDotEnvLocalFile(): void
     {
-        file_put_contents($this->tempDir . '/.env.local', "ANOTHER_VAR=bar");
+        file_put_contents($this->tempDir . '/.env.local', 'ANOTHER_VAR=bar');
 
         $dotEnv = new DotEnv($this->tempDir);
         $dotEnv->load();
@@ -81,7 +81,7 @@ class DotEnvTest extends TestCase
         $_ENV['EXISTING_VAR'] = 'original';
         $_SERVER['EXISTING_VAR'] = 'original';
 
-        file_put_contents($this->tempDir . '/.env', "EXISTING_VAR=new");
+        file_put_contents($this->tempDir . '/.env', 'EXISTING_VAR=new');
 
         $dotEnv = new DotEnv($this->tempDir);
         $dotEnv->load();
@@ -96,7 +96,7 @@ class DotEnvTest extends TestCase
         VALID_VAR=value
           # Indented comment
         INVALID_LINE_NO_EQUALS
-        
+
         ENV;
         file_put_contents($this->tempDir . '/.env', $content);
 
@@ -105,17 +105,17 @@ class DotEnvTest extends TestCase
 
         static::assertSame('value', getenv('VALID_VAR'));
     }
-    
+
     public function testLoadHandlesQuotedValues(): void
     {
         file_put_contents($this->tempDir . '/.env', "QUOTED='some value'");
-        
+
         $dotEnv = new DotEnv($this->tempDir);
         $dotEnv->load();
-        
+
         // DotEnv implementation trim(..., '"\'') trims quotes from start/end.
         static::assertSame('some value', getenv('QUOTED'));
-        
+
         // Cleanup
         putenv('QUOTED');
         unset($_ENV['QUOTED'], $_SERVER['QUOTED']);
@@ -125,10 +125,10 @@ class DotEnvTest extends TestCase
     {
         // No files created in tempDir
         $dotEnv = new DotEnv($this->tempDir);
-        
+
         // Should not throw
         $dotEnv->load();
-        
+
         static::assertTrue(true);
     }
 }
