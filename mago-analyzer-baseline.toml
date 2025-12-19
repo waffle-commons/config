@@ -2,38 +2,38 @@ variant = "loose"
 
 [[issues]]
 file = "src/Config.php"
-code = "missing-override-attribute"
-message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Config\Config::getArray`.'
+code = "possibly-undefined-array-index"
+message = "Possibly undefined array key `int(1)` accessed on `array<array-key, string>`."
 count = 1
 
 [[issues]]
-file = "src/Config.php"
-code = "missing-override-attribute"
-message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Config\Config::getBool`.'
+file = "src/DotEnv.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `RuntimeException` in `Waffle\Commons\Config\DotEnv::parseFile`.'
 count = 1
 
 [[issues]]
-file = "src/Config.php"
-code = "missing-override-attribute"
-message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Config\Config::getInt`.'
+file = "src/YamlParser.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `waffle\commons\config\exception\invalidconfigurationexception::__construct`: expected `string`, but found `mixed`.'
 count = 1
 
 [[issues]]
-file = "src/Config.php"
-code = "missing-override-attribute"
-message = 'Missing `#[Override]` attribute on overriding method `Waffle\Commons\Config\Config::getString`.'
+file = "src/YamlParser.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `waffle\commons\config\exception\invalidconfigurationexception::__construct`: expected `int`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/YamlParser.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
 count = 1
 
 [[issues]]
 file = "src/YamlParser.php"
 code = "mixed-return-statement"
-message = 'Could not infer a precise return type for function `waffle\commons\config\yamlparser::parselines`. Saw type `mixed`.'
-count = 1
-
-[[issues]]
-file = "src/YamlParser.php"
-code = "non-existent-attribute-class"
-message = 'Attribute class `JetBrains\PhpStorm\Deprecated` not found or could not be autoloaded.'
+message = 'Could not infer a precise return type for function `waffle\commons\config\yamlparser::parsefile`. Saw type `truthy-mixed`.'
 count = 1
 
 [[issues]]
@@ -61,6 +61,12 @@ message = "Invalid left operand: type `mixed` cannot be reliably used in string 
 count = 1
 
 [[issues]]
+file = "tests/src/AbstractTestCase.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Random\RandomException` in `WaffleTests\Commons\Config\AbstractTestCase::setUp`.'
+count = 1
+
+[[issues]]
 file = "tests/src/ConfigTest.php"
 code = "mixed-argument"
 message = "Invalid argument type for argument #1 of `file_exists`: expected `string`, but found `mixed`."
@@ -79,9 +85,291 @@ message = "Assigning `mixed` type to a variable may lead to unexpected behavior.
 count = 4
 
 [[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testFailsafeConfigIsLoaded`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testGetArrayReturnsCorrectValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testGetArrayReturnsDefaultValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testGetBoolReturnsCorrectValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testGetBoolReturnsDefaultValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testGetReturnsCorrectValueForExistingKey`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testGetReturnsDefaultValueForNonexistentKey`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testGetReturnsNullForNonexistentKeyWhenNoDefaultIsProvided`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testLoadHandlesNonexistentConfigFileGracefully`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testProtectedGetMethodRetrievesValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\ConfigTest::testResolveEnvPlaceholders`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `ReflectionException` in `WaffleTests\Commons\Config\ConfigTest::testProtectedGetMethodRetrievesValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testFailsafeConfigIsLoaded`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetArrayReturnsCorrectValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetArrayReturnsDefaultValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetArrayThrowsExceptionForInvalidType`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetBoolReturnsCorrectValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetBoolReturnsDefaultValue`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetBoolThrowsExceptionForInvalidType`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetIntThrowsExceptionForInvalidType`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetReturnsCorrectValueForExistingKey`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetReturnsDefaultValueForNonexistentKey`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetReturnsNullForNonexistentKeyWhenNoDefaultIsProvided`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testGetStringThrowsExceptionForInvalidType`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testLoadHandlesNonexistentConfigFileGracefully`.'
+count = 1
+
+[[issues]]
+file = "tests/src/ConfigTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Waffle\Commons\Config\Exception\InvalidConfigurationException` in `WaffleTests\Commons\Config\ConfigTest::testResolveEnvPlaceholders`.'
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "invalid-method-access"
+message = "Attempting to access a method on a non-object type (`string`)."
+count = 3
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `rmdir`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `unlink`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "undefined-string-array-index"
+message = "Undefined array key 'ANOTHER_VAR' accessed on `array{'APP_DEBUG'?: bool, 'APP_ENV'?: string, 'APP_FALLBACK_LOCALE'?: non-empty-string, 'APP_KEY'?: non-empty-string, 'APP_LOCALE'?: non-empty-string, 'APP_NAME'?: non-empty-string, 'APP_SECRET'?: non-empty-string, 'APP_URL'?: non-empty-string, 'AUTH_TYPE'?: non-empty-string, 'CACHE_DRIVER'?: non-empty-string, 'CONTENT_LENGTH'?: string, 'CONTENT_TYPE'?: string, 'DATABASE_URL'?: non-empty-string, 'DB_CONNECTION'?: non-empty-string, 'DB_DATABASE'?: non-empty-string, 'DB_HOST'?: non-empty-string, 'DB_PASSWORD'?: string, 'DB_PORT'?: non-empty-string, 'DB_USERNAME'?: non-empty-string, 'DOCUMENT_ROOT'?: non-empty-string, 'FCGI_ROLE'?: non-empty-string, 'GATEWAY_INTERFACE'?: non-empty-string, 'HOME'?: non-empty-string, 'HTTPS'?: string, 'HTTP_ACCEPT'?: non-empty-string, 'HTTP_ACCEPT_CHARSET'?: non-empty-string, 'HTTP_ACCEPT_ENCODING'?: non-empty-string, 'HTTP_ACCEPT_LANGUAGE'?: non-empty-string, 'HTTP_CACHE_CONTROL'?: non-empty-string, 'HTTP_CDN_LOOP'?: non-empty-string, 'HTTP_CF_CONNECTING_IP'?: non-empty-string, 'HTTP_CF_IPCOUNTRY'?: non-empty-string, 'HTTP_CF_VISITOR'?: non-empty-string, 'HTTP_CLIENT_IP'?: non-empty-string, 'HTTP_CONNECTION'?: non-empty-string, 'HTTP_COOKIE'?: non-empty-string, 'HTTP_DNT'?: non-empty-string, 'HTTP_HOST'?: non-empty-string, 'HTTP_PRIORITY'?: non-empty-string, 'HTTP_REFERER'?: non-empty-string, 'HTTP_SEC_CH_UA'?: non-empty-string, 'HTTP_SEC_CH_UA_MOBILE'?: non-empty-string, 'HTTP_SEC_CH_UA_PLATFORM'?: non-empty-string, 'HTTP_SEC_FETCH_DEST'?: non-empty-string, 'HTTP_SEC_FETCH_MODE'?: non-empty-string, 'HTTP_SEC_FETCH_SITE'?: non-empty-string, 'HTTP_SEC_FETCH_USER'?: non-empty-string, 'HTTP_UPGRADE_INSECURE_REQUESTS'?: non-empty-string, 'HTTP_USER_AGENT'?: non-empty-string, 'HTTP_X_FORWARDED_FOR'?: non-empty-string, 'HTTP_X_FORWARDED_PROTO'?: non-empty-string, 'HTTP_X_REAL_IP'?: non-empty-string, 'ORIG_PATH_INFO'?: non-empty-string, 'PATH'?: non-empty-string, 'PATH_INFO'?: non-empty-string, 'PATH_TRANSLATED'?: non-empty-string, 'PHP_AUTH_DIGEST'?: non-empty-string, 'PHP_AUTH_PW'?: non-empty-string, 'PHP_AUTH_USER'?: non-empty-string, 'PHP_SELF'?: non-empty-string, 'QUERY_STRING'?: string, 'REDIRECT_REMOTE_USER'?: non-empty-string, 'REDIRECT_STATUS'?: non-empty-string, 'REMOTE_ADDR'?: non-empty-string, 'REMOTE_HOST'?: non-empty-string, 'REMOTE_PORT'?: string, 'REMOTE_USER'?: non-empty-string, 'REQUEST_METHOD'?: non-empty-string, 'REQUEST_SCHEME'?: non-empty-string, 'REQUEST_TIME'?: int<1764191486, max>, 'REQUEST_TIME_FLOAT'?: float, 'REQUEST_URI'?: non-empty-string, 'SCRIPT_FILENAME': non-empty-string, 'SCRIPT_NAME': non-empty-string, 'SECRET'?: non-empty-string, 'SERVER_ADDR'?: non-empty-string, 'SERVER_ADMIN'?: non-empty-string, 'SERVER_NAME'?: non-empty-string, 'SERVER_PORT'?: non-empty-string, 'SERVER_PROTOCOL'?: non-empty-string, 'SERVER_SIGNATURE'?: non-empty-string, 'SERVER_SOFTWARE'?: non-empty-string, 'USER'?: non-empty-string, 'argv'?: non-empty-list<string>, 'arvc'?: positive-int, ...<non-empty-string, string>}`."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "undefined-string-array-index"
+message = "Undefined array key 'ANOTHER_VAR' accessed on `array{'APP_DEBUG'?: bool, 'APP_ENV'?: string, 'APP_FALLBACK_LOCALE'?: non-empty-string, 'APP_KEY'?: non-empty-string, 'APP_LOCALE'?: non-empty-string, 'APP_NAME'?: non-empty-string, 'APP_SECRET'?: non-empty-string, 'APP_URL'?: non-empty-string, 'CACHE_DRIVER'?: non-empty-string, 'DATABASE_URL'?: non-empty-string, 'DB_CONNECTION'?: non-empty-string, 'DB_DATABASE'?: non-empty-string, 'DB_HOST'?: non-empty-string, 'DB_PASSWORD'?: string, 'DB_PORT'?: non-empty-string, 'DB_USERNAME'?: non-empty-string, 'HOME'?: non-empty-string, 'PATH'?: non-empty-string, 'SECRET'?: non-empty-string, 'SHELL'?: non-empty-string, 'USER'?: non-empty-string, ...<non-empty-string, string>}`."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "undefined-string-array-index"
+message = "Undefined array key 'EXISTING_VAR' accessed on `array{'APP_DEBUG'?: bool, 'APP_ENV'?: string, 'APP_FALLBACK_LOCALE'?: non-empty-string, 'APP_KEY'?: non-empty-string, 'APP_LOCALE'?: non-empty-string, 'APP_NAME'?: non-empty-string, 'APP_SECRET'?: non-empty-string, 'APP_URL'?: non-empty-string, 'AUTH_TYPE'?: non-empty-string, 'CACHE_DRIVER'?: non-empty-string, 'CONTENT_LENGTH'?: string, 'CONTENT_TYPE'?: string, 'DATABASE_URL'?: non-empty-string, 'DB_CONNECTION'?: non-empty-string, 'DB_DATABASE'?: non-empty-string, 'DB_HOST'?: non-empty-string, 'DB_PASSWORD'?: string, 'DB_PORT'?: non-empty-string, 'DB_USERNAME'?: non-empty-string, 'DOCUMENT_ROOT'?: non-empty-string, 'FCGI_ROLE'?: non-empty-string, 'GATEWAY_INTERFACE'?: non-empty-string, 'HOME'?: non-empty-string, 'HTTPS'?: string, 'HTTP_ACCEPT'?: non-empty-string, 'HTTP_ACCEPT_CHARSET'?: non-empty-string, 'HTTP_ACCEPT_ENCODING'?: non-empty-string, 'HTTP_ACCEPT_LANGUAGE'?: non-empty-string, 'HTTP_CACHE_CONTROL'?: non-empty-string, 'HTTP_CDN_LOOP'?: non-empty-string, 'HTTP_CF_CONNECTING_IP'?: non-empty-string, 'HTTP_CF_IPCOUNTRY'?: non-empty-string, 'HTTP_CF_VISITOR'?: non-empty-string, 'HTTP_CLIENT_IP'?: non-empty-string, 'HTTP_CONNECTION'?: non-empty-string, 'HTTP_COOKIE'?: non-empty-string, 'HTTP_DNT'?: non-empty-string, 'HTTP_HOST'?: non-empty-string, 'HTTP_PRIORITY'?: non-empty-string, 'HTTP_REFERER'?: non-empty-string, 'HTTP_SEC_CH_UA'?: non-empty-string, 'HTTP_SEC_CH_UA_MOBILE'?: non-empty-string, 'HTTP_SEC_CH_UA_PLATFORM'?: non-empty-string, 'HTTP_SEC_FETCH_DEST'?: non-empty-string, 'HTTP_SEC_FETCH_MODE'?: non-empty-string, 'HTTP_SEC_FETCH_SITE'?: non-empty-string, 'HTTP_SEC_FETCH_USER'?: non-empty-string, 'HTTP_UPGRADE_INSECURE_REQUESTS'?: non-empty-string, 'HTTP_USER_AGENT'?: non-empty-string, 'HTTP_X_FORWARDED_FOR'?: non-empty-string, 'HTTP_X_FORWARDED_PROTO'?: non-empty-string, 'HTTP_X_REAL_IP'?: non-empty-string, 'ORIG_PATH_INFO'?: non-empty-string, 'PATH'?: non-empty-string, 'PATH_INFO'?: non-empty-string, 'PATH_TRANSLATED'?: non-empty-string, 'PHP_AUTH_DIGEST'?: non-empty-string, 'PHP_AUTH_PW'?: non-empty-string, 'PHP_AUTH_USER'?: non-empty-string, 'PHP_SELF'?: non-empty-string, 'QUERY_STRING'?: string, 'REDIRECT_REMOTE_USER'?: non-empty-string, 'REDIRECT_STATUS'?: non-empty-string, 'REMOTE_ADDR'?: non-empty-string, 'REMOTE_HOST'?: non-empty-string, 'REMOTE_PORT'?: string, 'REMOTE_USER'?: non-empty-string, 'REQUEST_METHOD'?: non-empty-string, 'REQUEST_SCHEME'?: non-empty-string, 'REQUEST_TIME'?: int<1764191486, max>, 'REQUEST_TIME_FLOAT'?: float, 'REQUEST_URI'?: non-empty-string, 'SCRIPT_FILENAME': non-empty-string, 'SCRIPT_NAME': non-empty-string, 'SECRET'?: non-empty-string, 'SERVER_ADDR'?: non-empty-string, 'SERVER_ADMIN'?: non-empty-string, 'SERVER_NAME'?: non-empty-string, 'SERVER_PORT'?: non-empty-string, 'SERVER_PROTOCOL'?: non-empty-string, 'SERVER_SIGNATURE'?: non-empty-string, 'SERVER_SOFTWARE'?: non-empty-string, 'USER'?: non-empty-string, 'argv'?: non-empty-list<string>, 'arvc'?: positive-int, ...<non-empty-string, string>}`."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "undefined-string-array-index"
+message = "Undefined array key 'EXISTING_VAR' accessed on `array{'APP_DEBUG'?: bool, 'APP_ENV'?: string, 'APP_FALLBACK_LOCALE'?: non-empty-string, 'APP_KEY'?: non-empty-string, 'APP_LOCALE'?: non-empty-string, 'APP_NAME'?: non-empty-string, 'APP_SECRET'?: non-empty-string, 'APP_URL'?: non-empty-string, 'CACHE_DRIVER'?: non-empty-string, 'DATABASE_URL'?: non-empty-string, 'DB_CONNECTION'?: non-empty-string, 'DB_DATABASE'?: non-empty-string, 'DB_HOST'?: non-empty-string, 'DB_PASSWORD'?: string, 'DB_PORT'?: non-empty-string, 'DB_USERNAME'?: non-empty-string, 'HOME'?: non-empty-string, 'PATH'?: non-empty-string, 'SECRET'?: non-empty-string, 'SHELL'?: non-empty-string, 'USER'?: non-empty-string, ...<non-empty-string, string>}`."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "undefined-string-array-index"
+message = "Undefined array key 'QUOTED' accessed on `array{'APP_DEBUG'?: bool, 'APP_ENV'?: string, 'APP_FALLBACK_LOCALE'?: non-empty-string, 'APP_KEY'?: non-empty-string, 'APP_LOCALE'?: non-empty-string, 'APP_NAME'?: non-empty-string, 'APP_SECRET'?: non-empty-string, 'APP_URL'?: non-empty-string, 'AUTH_TYPE'?: non-empty-string, 'CACHE_DRIVER'?: non-empty-string, 'CONTENT_LENGTH'?: string, 'CONTENT_TYPE'?: string, 'DATABASE_URL'?: non-empty-string, 'DB_CONNECTION'?: non-empty-string, 'DB_DATABASE'?: non-empty-string, 'DB_HOST'?: non-empty-string, 'DB_PASSWORD'?: string, 'DB_PORT'?: non-empty-string, 'DB_USERNAME'?: non-empty-string, 'DOCUMENT_ROOT'?: non-empty-string, 'FCGI_ROLE'?: non-empty-string, 'GATEWAY_INTERFACE'?: non-empty-string, 'HOME'?: non-empty-string, 'HTTPS'?: string, 'HTTP_ACCEPT'?: non-empty-string, 'HTTP_ACCEPT_CHARSET'?: non-empty-string, 'HTTP_ACCEPT_ENCODING'?: non-empty-string, 'HTTP_ACCEPT_LANGUAGE'?: non-empty-string, 'HTTP_CACHE_CONTROL'?: non-empty-string, 'HTTP_CDN_LOOP'?: non-empty-string, 'HTTP_CF_CONNECTING_IP'?: non-empty-string, 'HTTP_CF_IPCOUNTRY'?: non-empty-string, 'HTTP_CF_VISITOR'?: non-empty-string, 'HTTP_CLIENT_IP'?: non-empty-string, 'HTTP_CONNECTION'?: non-empty-string, 'HTTP_COOKIE'?: non-empty-string, 'HTTP_DNT'?: non-empty-string, 'HTTP_HOST'?: non-empty-string, 'HTTP_PRIORITY'?: non-empty-string, 'HTTP_REFERER'?: non-empty-string, 'HTTP_SEC_CH_UA'?: non-empty-string, 'HTTP_SEC_CH_UA_MOBILE'?: non-empty-string, 'HTTP_SEC_CH_UA_PLATFORM'?: non-empty-string, 'HTTP_SEC_FETCH_DEST'?: non-empty-string, 'HTTP_SEC_FETCH_MODE'?: non-empty-string, 'HTTP_SEC_FETCH_SITE'?: non-empty-string, 'HTTP_SEC_FETCH_USER'?: non-empty-string, 'HTTP_UPGRADE_INSECURE_REQUESTS'?: non-empty-string, 'HTTP_USER_AGENT'?: non-empty-string, 'HTTP_X_FORWARDED_FOR'?: non-empty-string, 'HTTP_X_FORWARDED_PROTO'?: non-empty-string, 'HTTP_X_REAL_IP'?: non-empty-string, 'ORIG_PATH_INFO'?: non-empty-string, 'PATH'?: non-empty-string, 'PATH_INFO'?: non-empty-string, 'PATH_TRANSLATED'?: non-empty-string, 'PHP_AUTH_DIGEST'?: non-empty-string, 'PHP_AUTH_PW'?: non-empty-string, 'PHP_AUTH_USER'?: non-empty-string, 'PHP_SELF'?: non-empty-string, 'QUERY_STRING'?: string, 'REDIRECT_REMOTE_USER'?: non-empty-string, 'REDIRECT_STATUS'?: non-empty-string, 'REMOTE_ADDR'?: non-empty-string, 'REMOTE_HOST'?: non-empty-string, 'REMOTE_PORT'?: string, 'REMOTE_USER'?: non-empty-string, 'REQUEST_METHOD'?: non-empty-string, 'REQUEST_SCHEME'?: non-empty-string, 'REQUEST_TIME'?: int<1764191486, max>, 'REQUEST_TIME_FLOAT'?: float, 'REQUEST_URI'?: non-empty-string, 'SCRIPT_FILENAME': non-empty-string, 'SCRIPT_NAME': non-empty-string, 'SECRET'?: non-empty-string, 'SERVER_ADDR'?: non-empty-string, 'SERVER_ADMIN'?: non-empty-string, 'SERVER_NAME'?: non-empty-string, 'SERVER_PORT'?: non-empty-string, 'SERVER_PROTOCOL'?: non-empty-string, 'SERVER_SIGNATURE'?: non-empty-string, 'SERVER_SOFTWARE'?: non-empty-string, 'USER'?: non-empty-string, 'argv'?: non-empty-list<string>, 'arvc'?: positive-int, ...<non-empty-string, string>}`."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "undefined-string-array-index"
+message = "Undefined array key 'QUOTED' accessed on `array{'APP_DEBUG'?: bool, 'APP_ENV'?: string, 'APP_FALLBACK_LOCALE'?: non-empty-string, 'APP_KEY'?: non-empty-string, 'APP_LOCALE'?: non-empty-string, 'APP_NAME'?: non-empty-string, 'APP_SECRET'?: non-empty-string, 'APP_URL'?: non-empty-string, 'CACHE_DRIVER'?: non-empty-string, 'DATABASE_URL'?: non-empty-string, 'DB_CONNECTION'?: non-empty-string, 'DB_DATABASE'?: non-empty-string, 'DB_HOST'?: non-empty-string, 'DB_PASSWORD'?: string, 'DB_PORT'?: non-empty-string, 'DB_USERNAME'?: non-empty-string, 'HOME'?: non-empty-string, 'PATH'?: non-empty-string, 'SECRET'?: non-empty-string, 'SHELL'?: non-empty-string, 'USER'?: non-empty-string, ...<non-empty-string, string>}`."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "undefined-string-array-index"
+message = "Undefined array key 'TEST_VAR' accessed on `array{'APP_DEBUG'?: bool, 'APP_ENV'?: string, 'APP_FALLBACK_LOCALE'?: non-empty-string, 'APP_KEY'?: non-empty-string, 'APP_LOCALE'?: non-empty-string, 'APP_NAME'?: non-empty-string, 'APP_SECRET'?: non-empty-string, 'APP_URL'?: non-empty-string, 'AUTH_TYPE'?: non-empty-string, 'CACHE_DRIVER'?: non-empty-string, 'CONTENT_LENGTH'?: string, 'CONTENT_TYPE'?: string, 'DATABASE_URL'?: non-empty-string, 'DB_CONNECTION'?: non-empty-string, 'DB_DATABASE'?: non-empty-string, 'DB_HOST'?: non-empty-string, 'DB_PASSWORD'?: string, 'DB_PORT'?: non-empty-string, 'DB_USERNAME'?: non-empty-string, 'DOCUMENT_ROOT'?: non-empty-string, 'FCGI_ROLE'?: non-empty-string, 'GATEWAY_INTERFACE'?: non-empty-string, 'HOME'?: non-empty-string, 'HTTPS'?: string, 'HTTP_ACCEPT'?: non-empty-string, 'HTTP_ACCEPT_CHARSET'?: non-empty-string, 'HTTP_ACCEPT_ENCODING'?: non-empty-string, 'HTTP_ACCEPT_LANGUAGE'?: non-empty-string, 'HTTP_CACHE_CONTROL'?: non-empty-string, 'HTTP_CDN_LOOP'?: non-empty-string, 'HTTP_CF_CONNECTING_IP'?: non-empty-string, 'HTTP_CF_IPCOUNTRY'?: non-empty-string, 'HTTP_CF_VISITOR'?: non-empty-string, 'HTTP_CLIENT_IP'?: non-empty-string, 'HTTP_CONNECTION'?: non-empty-string, 'HTTP_COOKIE'?: non-empty-string, 'HTTP_DNT'?: non-empty-string, 'HTTP_HOST'?: non-empty-string, 'HTTP_PRIORITY'?: non-empty-string, 'HTTP_REFERER'?: non-empty-string, 'HTTP_SEC_CH_UA'?: non-empty-string, 'HTTP_SEC_CH_UA_MOBILE'?: non-empty-string, 'HTTP_SEC_CH_UA_PLATFORM'?: non-empty-string, 'HTTP_SEC_FETCH_DEST'?: non-empty-string, 'HTTP_SEC_FETCH_MODE'?: non-empty-string, 'HTTP_SEC_FETCH_SITE'?: non-empty-string, 'HTTP_SEC_FETCH_USER'?: non-empty-string, 'HTTP_UPGRADE_INSECURE_REQUESTS'?: non-empty-string, 'HTTP_USER_AGENT'?: non-empty-string, 'HTTP_X_FORWARDED_FOR'?: non-empty-string, 'HTTP_X_FORWARDED_PROTO'?: non-empty-string, 'HTTP_X_REAL_IP'?: non-empty-string, 'ORIG_PATH_INFO'?: non-empty-string, 'PATH'?: non-empty-string, 'PATH_INFO'?: non-empty-string, 'PATH_TRANSLATED'?: non-empty-string, 'PHP_AUTH_DIGEST'?: non-empty-string, 'PHP_AUTH_PW'?: non-empty-string, 'PHP_AUTH_USER'?: non-empty-string, 'PHP_SELF'?: non-empty-string, 'QUERY_STRING'?: string, 'REDIRECT_REMOTE_USER'?: non-empty-string, 'REDIRECT_STATUS'?: non-empty-string, 'REMOTE_ADDR'?: non-empty-string, 'REMOTE_HOST'?: non-empty-string, 'REMOTE_PORT'?: string, 'REMOTE_USER'?: non-empty-string, 'REQUEST_METHOD'?: non-empty-string, 'REQUEST_SCHEME'?: non-empty-string, 'REQUEST_TIME'?: int<1764191486, max>, 'REQUEST_TIME_FLOAT'?: float, 'REQUEST_URI'?: non-empty-string, 'SCRIPT_FILENAME': non-empty-string, 'SCRIPT_NAME': non-empty-string, 'SECRET'?: non-empty-string, 'SERVER_ADDR'?: non-empty-string, 'SERVER_ADMIN'?: non-empty-string, 'SERVER_NAME'?: non-empty-string, 'SERVER_PORT'?: non-empty-string, 'SERVER_PROTOCOL'?: non-empty-string, 'SERVER_SIGNATURE'?: non-empty-string, 'SERVER_SOFTWARE'?: non-empty-string, 'USER'?: non-empty-string, 'argv'?: non-empty-list<string>, 'arvc'?: positive-int, ...<non-empty-string, string>}`."
+count = 2
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "undefined-string-array-index"
+message = "Undefined array key 'TEST_VAR' accessed on `array{'APP_DEBUG'?: bool, 'APP_ENV'?: string, 'APP_FALLBACK_LOCALE'?: non-empty-string, 'APP_KEY'?: non-empty-string, 'APP_LOCALE'?: non-empty-string, 'APP_NAME'?: non-empty-string, 'APP_SECRET'?: non-empty-string, 'APP_URL'?: non-empty-string, 'CACHE_DRIVER'?: non-empty-string, 'DATABASE_URL'?: non-empty-string, 'DB_CONNECTION'?: non-empty-string, 'DB_DATABASE'?: non-empty-string, 'DB_HOST'?: non-empty-string, 'DB_PASSWORD'?: string, 'DB_PORT'?: non-empty-string, 'DB_USERNAME'?: non-empty-string, 'HOME'?: non-empty-string, 'PATH'?: non-empty-string, 'SECRET'?: non-empty-string, 'SHELL'?: non-empty-string, 'USER'?: non-empty-string, ...<non-empty-string, string>}`."
+count = 2
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\DotEnvTest::testLoadDoesNotOverwriteExistingVariables`.'
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\DotEnvTest::testLoadHandlesMissingFilesGracefully`.'
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\DotEnvTest::testLoadHandlesQuotedValues`.'
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\DotEnvTest::testLoadIgnoresCommentsAndInvalidLines`.'
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\DotEnvTest::testLoadReadsDotEnvFile`.'
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\DotEnvTest::testLoadReadsDotEnvLocalFile`.'
+count = 1
+
+[[issues]]
+file = "tests/src/Exception/InvalidConfigurationExceptionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\Exception` in `WaffleTests\Commons\Config\Exception\InvalidConfigurationExceptionTest::testCanBeInstantiated`.'
+count = 1
+
+[[issues]]
+file = "tests/src/Exception/InvalidConfigurationExceptionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\Exception\InvalidConfigurationExceptionTest::testCanBeInstantiated`.'
+count = 1
+
+[[issues]]
+file = "tests/src/Exception/InvalidConfigurationExceptionTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\UnknownClassOrInterfaceException` in `WaffleTests\Commons\Config\Exception\InvalidConfigurationExceptionTest::testCanBeInstantiated`.'
+count = 1
+
+[[issues]]
 file = "tests/src/Trait/ParserTraitTest.php"
 code = "ambiguous-object-method-access"
 message = "Cannot statically verify method call on a generic `object` type."
+count = 1
+
+[[issues]]
+file = "tests/src/Trait/ParserTraitTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\Trait\ParserTraitTest::testParseValue`.'
 count = 1
 
 [[issues]]
@@ -106,4 +394,46 @@ count = 1
 file = "tests/src/YamlParserTest.php"
 code = "possibly-null-argument"
 message = "Argument #1 of function `file_put_contents` is possibly `null`, but parameter type `string` does not accept it."
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\YamlParserTest::testParseFileHandlesEmptyFileGracefully`.'
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\YamlParserTest::testParseFileIgnoresInvalidLines`.'
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\YamlParserTest::testParseFileReturnsEmptyArrayForNonexistentFile`.'
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\YamlParserTest::testParseFileWithCommentsAndEmptyLines`.'
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\YamlParserTest::testParseFileWithDeeplyNestedStructure`.'
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\YamlParserTest::testParseFileWithSimpleStructure`.'
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PHPUnit\Framework\ExpectationFailedException` in `WaffleTests\Commons\Config\YamlParserTest::testParseFileWithValueContainingSpecialCharacters`.'
 count = 1

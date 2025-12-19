@@ -9,8 +9,6 @@ use ReflectionClass;
 use Waffle\Commons\Config\Config;
 use Waffle\Commons\Config\Exception\InvalidConfigurationException;
 use Waffle\Commons\Contracts\Enum\Failsafe;
-use Waffle\Commons\Contracts\Parser\YamlParserInterface;
-use Waffle\Commons\Contracts\System\SystemInterface;
 use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 
 // Added for testing protected method
@@ -20,8 +18,6 @@ use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 #[CoversClass(Config::class)] // Added CoversClass
 class ConfigTest extends TestCase
 {
-    private SystemInterface $systemMock;
-    private YamlParserInterface $yamlParserMock;
     private null|string $tempYamlFileBool = null; // For bool test
     private null|string $tempYamlFileArray = null; // For array test
     private null|string $tempYamlFileEnv = null; // For env test
@@ -30,9 +26,6 @@ class ConfigTest extends TestCase
     #[\Override]
     protected function setUp(): void
     {
-        $this->systemMock = $this->createMock(SystemInterface::class);
-        $this->yamlParserMock = $this->createMock(YamlParserInterface::class);
-
         parent::setUp(); // Creates the test config directory and default app.yaml
 
         $yamlContentBool = <<<YAML
@@ -84,9 +77,11 @@ class ConfigTest extends TestCase
         }
         // Clean up any other temp files created directly in tests
         foreach ($this->tempFilesCreated as $file) {
-            if (file_exists($file)) {
-                unlink($file);
+            if (!file_exists($file)) {
+                continue;
             }
+
+            unlink($file);
         }
 
         parent::tearDown();
