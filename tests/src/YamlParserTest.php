@@ -9,7 +9,7 @@ use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 
 class YamlParserTest extends TestCase
 {
-    private null|string $tempFile = null;
+    private ?string $tempFile = null;
 
     #[\Override]
     protected function tearDown(): void

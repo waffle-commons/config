@@ -8,7 +8,7 @@ use Waffle\Commons\Config\Exception\InvalidConfigurationException;
 use Waffle\Commons\Contracts\Config\ConfigInterface;
 use Waffle\Commons\Contracts\Enum\Failsafe;
 
-class Config implements ConfigInterface
+final class Config implements ConfigInterface
 {
     private array $parameters = [];
 
@@ -55,7 +55,8 @@ class Config implements ConfigInterface
     /**
      * @throws InvalidConfigurationException
      */
-    public function getInt(string $key, null|int $default = null): null|int
+    #[\Override]
+    public function getInt(string $key, ?int $default = null): ?int
     {
         /** @var array|string|int|bool|null $value */
         $value = $this->get(key: $key);
@@ -78,7 +79,8 @@ class Config implements ConfigInterface
     /**
      * @throws InvalidConfigurationException
      */
-    public function getString(string $key, null|string $default = null): null|string
+    #[\Override]
+    public function getString(string $key, ?string $default = null): ?string
     {
         /** @var array|string|int|bool|null $value */
         $value = $this->get(key: $key);
@@ -101,7 +103,8 @@ class Config implements ConfigInterface
     /**
      * @throws InvalidConfigurationException
      */
-    public function getArray(string $key, null|array $default = null): null|array
+    #[\Override]
+    public function getArray(string $key, ?array $default = null): ?array
     {
         /** @var array|string|int|bool|null $value */
         $value = $this->get(key: $key);
@@ -124,6 +127,7 @@ class Config implements ConfigInterface
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function getBool(string $key, bool $default = false): bool
     {
         /** @var array|string|int|bool|null $value */

@@ -19,31 +19,79 @@ message = "Avoid `elseif` clauses."
 count = 1
 
 [[issues]]
-file = "src/YamlParser.php"
-code = "cyclomatic-complexity"
-message = "Class has high complexity."
+file = "src/DotEnv.php"
+code = "literal-named-argument"
+message = '''Literal argument `'"\''` should be passed as a named argument for clarity.'''
 count = 1
 
 [[issues]]
-file = "src/YamlParser.php"
-code = "no-else-clause"
-message = "Avoid `elseif` clauses."
-count = 2
-
-[[issues]]
-file = "src/YamlParser.php"
-code = "prefer-early-continue"
-message = "Consider using early continue pattern to reduce nesting."
+file = "src/DotEnv.php"
+code = "literal-named-argument"
+message = "Literal argument `2` should be passed as a named argument for clarity."
 count = 1
 
 [[issues]]
-file = "tests/src/ConfigTest.php"
-code = "prefer-early-continue"
-message = "Consider using early continue pattern to reduce nesting."
+file = "src/Trait/ParserTrait.php"
+code = "literal-named-argument"
+message = "Literal argument `1` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/src/AbstractTestCase.php"
+code = "literal-named-argument"
+message = "Literal argument `0o777` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/src/AbstractTestCase.php"
+code = "literal-named-argument"
+message = "Literal argument `true` should be passed as a named argument for clarity."
 count = 1
 
 [[issues]]
 file = "tests/src/ConfigTest.php"
 code = "too-many-methods"
 message = "Class has too many methods."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "literal-named-argument"
+message = """Literal argument `"QUOTED='some value'"` should be passed as a named argument for clarity."""
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'ANOTHER_VAR=bar'` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'EXISTING_VAR=new'` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'TEST_VAR=foo'` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "literal-named-argument"
+message = "Literal argument `0o777` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/src/DotEnvTest.php"
+code = "literal-named-argument"
+message = "Literal argument `true` should be passed as a named argument for clarity."
+count = 2
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'waffle_test_'` should be passed as a named argument for clarity."
 count = 1

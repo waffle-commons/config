@@ -9,8 +9,6 @@ use ReflectionClass;
 use Waffle\Commons\Config\Config;
 use Waffle\Commons\Config\Exception\InvalidConfigurationException;
 use Waffle\Commons\Contracts\Enum\Failsafe;
-use Waffle\Commons\Contracts\Parser\YamlParserInterface;
-use Waffle\Commons\Contracts\System\SystemInterface;
 use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 
 // Added for testing protected method
@@ -20,19 +18,14 @@ use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 #[CoversClass(Config::class)] // Added CoversClass
 class ConfigTest extends TestCase
 {
-    private SystemInterface $systemMock;
-    private YamlParserInterface $yamlParserMock;
-    private null|string $tempYamlFileBool = null; // For bool test
-    private null|string $tempYamlFileArray = null; // For array test
-    private null|string $tempYamlFileEnv = null; // For env test
+    private ?string $tempYamlFileBool = null; // For bool test
+    private ?string $tempYamlFileArray = null; // For array test
+    private ?string $tempYamlFileEnv = null; // For env test
     private array $tempFilesCreated = []; // Keep track of temp files
 
     #[\Override]
     protected function setUp(): void
     {
-        $this->systemMock = $this->createMock(SystemInterface::class);
-        $this->yamlParserMock = $this->createMock(YamlParserInterface::class);
-
         parent::setUp(); // Creates the test config directory and default app.yaml
 
         $yamlContentBool = <<<YAML
@@ -84,9 +77,11 @@ class ConfigTest extends TestCase
         }
         // Clean up any other temp files created directly in tests
         foreach ($this->tempFilesCreated as $file) {
-            if (file_exists($file)) {
-                unlink($file);
+            if (!file_exists($file)) {
+                continue;
             }
+
+            unlink($file);
         }
 
         parent::tearDown();
@@ -122,10 +117,7 @@ class ConfigTest extends TestCase
         $config = $this->createAndGetConfig();
 
         // Assert
-        $getDefault = $config->getString(
-            key: 'app.nonexistent',
-            default: 'default_value',
-        );
+        $getDefault = $config->getString(key: 'app.nonexistent', default: 'default_value');
         static::assertSame('default_value', $getDefault);
     }
 
@@ -154,11 +146,7 @@ class ConfigTest extends TestCase
         $this->tempFilesCreated[] = $filePath; // Track for cleanup
 
         // Create Config directly using the temp file
-        $config = new Config(
-            configDir: $this->testConfigDir,
-            environment: $envName,
-            failsafe: Failsafe::DISABLED, // Ensure it tries to load
-        );
+        $config = new Config(configDir: $this->testConfigDir, environment: $envName, failsafe: Failsafe::DISABLED); // Ensure it tries to load
 
         $config->getInt('waffle.paths.controllers'); // Trying to get a string as int
     }
@@ -179,11 +167,7 @@ class ConfigTest extends TestCase
         $this->tempFilesCreated[] = $filePath; // Track for cleanup
 
         // Create Config directly using the temp file
-        $config = new Config(
-            configDir: $this->testConfigDir,
-            environment: $envName,
-            failsafe: Failsafe::DISABLED,
-        );
+        $config = new Config(configDir: $this->testConfigDir, environment: $envName, failsafe: Failsafe::DISABLED);
 
         $config->getString('waffle.security.level'); // Trying to get an int as string
     }
