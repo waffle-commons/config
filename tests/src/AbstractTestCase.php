@@ -99,10 +99,6 @@ abstract class AbstractTestCase extends BaseTestCase
             servicePath: $servicePath,
         );
 
-        return new Config(
-            configDir: $this->testConfigDir,
-            environment: 'dev',
-            failsafe: $failsafe,
-        );
+        return new Config(configDir: $this->testConfigDir, environment: 'dev', failsafe: $failsafe);
     }
 }

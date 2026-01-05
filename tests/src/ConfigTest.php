@@ -18,9 +18,9 @@ use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 #[CoversClass(Config::class)] // Added CoversClass
 class ConfigTest extends TestCase
 {
-    private null|string $tempYamlFileBool = null; // For bool test
-    private null|string $tempYamlFileArray = null; // For array test
-    private null|string $tempYamlFileEnv = null; // For env test
+    private ?string $tempYamlFileBool = null; // For bool test
+    private ?string $tempYamlFileArray = null; // For array test
+    private ?string $tempYamlFileEnv = null; // For env test
     private array $tempFilesCreated = []; // Keep track of temp files
 
     #[\Override]
@@ -117,10 +117,7 @@ class ConfigTest extends TestCase
         $config = $this->createAndGetConfig();
 
         // Assert
-        $getDefault = $config->getString(
-            key: 'app.nonexistent',
-            default: 'default_value',
-        );
+        $getDefault = $config->getString(key: 'app.nonexistent', default: 'default_value');
         static::assertSame('default_value', $getDefault);
     }
 
@@ -149,11 +146,7 @@ class ConfigTest extends TestCase
         $this->tempFilesCreated[] = $filePath; // Track for cleanup
 
         // Create Config directly using the temp file
-        $config = new Config(
-            configDir: $this->testConfigDir,
-            environment: $envName,
-            failsafe: Failsafe::DISABLED, // Ensure it tries to load
-        );
+        $config = new Config(configDir: $this->testConfigDir, environment: $envName, failsafe: Failsafe::DISABLED); // Ensure it tries to load
 
         $config->getInt('waffle.paths.controllers'); // Trying to get a string as int
     }
@@ -174,11 +167,7 @@ class ConfigTest extends TestCase
         $this->tempFilesCreated[] = $filePath; // Track for cleanup
 
         // Create Config directly using the temp file
-        $config = new Config(
-            configDir: $this->testConfigDir,
-            environment: $envName,
-            failsafe: Failsafe::DISABLED,
-        );
+        $config = new Config(configDir: $this->testConfigDir, environment: $envName, failsafe: Failsafe::DISABLED);
 
         $config->getString('waffle.security.level'); // Trying to get an int as string
     }

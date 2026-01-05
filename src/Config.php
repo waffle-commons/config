@@ -56,7 +56,7 @@ final class Config implements ConfigInterface
      * @throws InvalidConfigurationException
      */
     #[\Override]
-    public function getInt(string $key, null|int $default = null): null|int
+    public function getInt(string $key, ?int $default = null): ?int
     {
         /** @var array|string|int|bool|null $value */
         $value = $this->get(key: $key);
@@ -80,7 +80,7 @@ final class Config implements ConfigInterface
      * @throws InvalidConfigurationException
      */
     #[\Override]
-    public function getString(string $key, null|string $default = null): null|string
+    public function getString(string $key, ?string $default = null): ?string
     {
         /** @var array|string|int|bool|null $value */
         $value = $this->get(key: $key);
@@ -104,7 +104,7 @@ final class Config implements ConfigInterface
      * @throws InvalidConfigurationException
      */
     #[\Override]
-    public function getArray(string $key, null|array $default = null): null|array
+    public function getArray(string $key, ?array $default = null): ?array
     {
         /** @var array|string|int|bool|null $value */
         $value = $this->get(key: $key);

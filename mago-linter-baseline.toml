@@ -27,37 +27,7 @@ count = 1
 [[issues]]
 file = "src/DotEnv.php"
 code = "literal-named-argument"
-message = "Literal argument `'#'` should be passed as a named argument for clarity."
-count = 1
-
-[[issues]]
-file = "src/DotEnv.php"
-code = "literal-named-argument"
-message = "Literal argument `'='` should be passed as a named argument for clarity."
-count = 1
-
-[[issues]]
-file = "src/DotEnv.php"
-code = "literal-named-argument"
 message = "Literal argument `2` should be passed as a named argument for clarity."
-count = 1
-
-[[issues]]
-file = "src/Trait/ParserTrait.php"
-code = "literal-named-argument"
-message = """Literal argument `"'"` should be passed as a named argument for clarity."""
-count = 2
-
-[[issues]]
-file = "src/Trait/ParserTrait.php"
-code = "literal-named-argument"
-message = """Literal argument `'"'` should be passed as a named argument for clarity."""
-count = 2
-
-[[issues]]
-file = "src/Trait/ParserTrait.php"
-code = "literal-named-argument"
-message = "Literal argument `'.'` should be passed as a named argument for clarity."
 count = 1
 
 [[issues]]
