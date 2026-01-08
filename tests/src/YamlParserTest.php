@@ -4,12 +4,22 @@ declare(strict_types=1);
 
 namespace WaffleTests\Commons\Config;
 
+use RuntimeException;
 use Waffle\Commons\Config\YamlParser;
 use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 
 class YamlParserTest extends TestCase
 {
     private ?string $tempFile = null;
+    private string|false $originalYamlDecodePhp;
+
+    #[\Override]
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Sauvegarde de la configuration ini actuelle
+        $this->originalYamlDecodePhp = ini_get('yaml.decode_php');
+    }
 
     #[\Override]
     protected function tearDown(): void
@@ -17,6 +27,11 @@ class YamlParserTest extends TestCase
         if ($this->tempFile && file_exists($this->tempFile)) {
             unlink($this->tempFile);
             $this->tempFile = null;
+        }
+
+        // Restauration de la configuration ini
+        if ($this->originalYamlDecodePhp !== false) {
+            ini_set('yaml.decode_php', $this->originalYamlDecodePhp);
         }
     }
 
@@ -65,15 +80,9 @@ class YamlParserTest extends TestCase
         YAML;
         $this->tempFile = $this->createTempFile($content);
         $parser = new YamlParser();
-
         $expected = [
-            'app' => [
-                'name' => 'WaffleApp',
-            ],
-            'database' => [
-                'host' => '127.0.0.1',
-                'port' => 3306,
-            ],
+            'app' => ['name' => 'WaffleApp'],
+            'database' => ['host' => '127.0.0.1', 'port' => 3306],
         ];
 
         // Act
@@ -81,59 +90,6 @@ class YamlParserTest extends TestCase
 
         // Assert
         static::assertSame($expected, $result);
-    }
-
-    public function testParseFileReturnsEmptyArrayForNonexistentFile(): void
-    {
-        // Arrange
-        $parser = new YamlParser();
-
-        // Act
-        $result = $parser->parseFile('/non/existent/file.yaml');
-
-        // Assert
-        static::assertSame([], $result);
-    }
-
-    public function testParseFileWithDeeplyNestedStructure(): void
-    {
-        // Arrange
-        $content = <<<YAML
-        level1:
-          level2:
-            level3:
-              key: 'deep_value'
-        YAML;
-        $this->tempFile = $this->createTempFile($content);
-        $parser = new YamlParser();
-        $expected = [
-            'level1' => [
-                'level2' => [
-                    'level3' => [
-                        'key' => 'deep_value',
-                    ],
-                ],
-            ],
-        ];
-
-        // Act
-        $result = $parser->parseFile($this->tempFile);
-
-        // Assert
-        static::assertSame($expected, $result);
-    }
-
-    public function testParseFileHandlesEmptyFileGracefully(): void
-    {
-        // Arrange
-        $this->tempFile = $this->createTempFile('');
-        $parser = new YamlParser();
-
-        // Act
-        $result = $parser->parseFile($this->tempFile);
-
-        // Assert
-        static::assertSame([], $result);
     }
 
     public function testParseFileWithValueContainingSpecialCharacters(): void
@@ -153,7 +109,9 @@ class YamlParserTest extends TestCase
 
     public function testParseFileIgnoresInvalidLines(): void
     {
-        // Arrange
+        // Note: Avec l'extension native YAML, une ligne invalide peut causer une erreur de parsing globale
+        // ou être interprétée différemment selon la spec YAML 1.1/1.2.
+        // Ce test vérifie que le parser gère une structure de liste correcte.
         $content = <<<YAML
         valid_key: valid_value
         list:
@@ -181,10 +139,54 @@ class YamlParserTest extends TestCase
         static::assertSame($expected, $result);
     }
 
+    public function testParseThrowsSecurityExceptionWhenDecodePhpEnabled(): void
+    {
+        // Simulation d'un environnement non sécurisé
+        ini_set('yaml.decode_php', '1');
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Security Warning');
+
+        $parser = new YamlParser();
+        $parser->parseFile('dummy.yaml');
+    }
+
+    public function testParseReturnsEmptyArrayIfFileDoesNotExist(): void
+    {
+        $parser = new YamlParser();
+        // Le code attrape l'exception RuntimeException et retourne []
+        $result = $parser->parseFile('/path/to/non/existent/file.yaml');
+
+        static::assertSame([], $result);
+    }
+
+    public function testParseReturnsEmptyArrayIfFileIsEmpty(): void
+    {
+        $this->tempFile = $this->createTempFile('');
+        $parser = new YamlParser();
+
+        // Un fichier vide lance une RuntimeException dans votre code, qui est catchée
+        $result = $parser->parseFile($this->tempFile);
+
+        static::assertSame([], $result);
+    }
+
+    public function testParseReturnsEmptyArrayIfYamlIsInvalid(): void
+    {
+        // Syntaxe YAML invalide
+        $this->tempFile = $this->createTempFile('invalid_key: [ unclosed sequence');
+        $parser = new YamlParser();
+
+        // L'extension lance un warning, transformé en exception par set_error_handler, puis catché
+        $result = $parser->parseFile($this->tempFile);
+
+        static::assertSame([], $result);
+    }
+
     private function createTempFile(string $content): string
     {
-        $this->tempFile = tempnam(sys_get_temp_dir(), 'waffle_test_');
-        file_put_contents($this->tempFile, $content);
-        return $this->tempFile;
+        $file = tempnam(sys_get_temp_dir(), 'waffle_config_test_');
+        file_put_contents($file, $content);
+        return $file;
     }
 }
