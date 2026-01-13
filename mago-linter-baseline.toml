@@ -93,5 +93,23 @@ count = 2
 [[issues]]
 file = "tests/src/YamlParserTest.php"
 code = "literal-named-argument"
-message = "Literal argument `'waffle_test_'` should be passed as a named argument for clarity."
+message = "Literal argument `'1'` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "literal-named-argument"
+message = "Literal argument `'waffle_config_test_'` should be passed as a named argument for clarity."
+count = 1
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "no-ini-set"
+message = "ini_set should not be used."
+count = 2
+
+[[issues]]
+file = "tests/src/YamlParserTest.php"
+code = "too-many-methods"
+message = "Class has too many methods."
 count = 1

@@ -22,10 +22,8 @@ final class YamlParser implements YamlParserInterface
     public function parseFile(string $path): array
     {
         if (ini_get('yaml.decode_php') === '1') {
-            throw new \RuntimeException(
-                'Security Warning: "yaml.decode_php" is enabled in php.ini. ' .
-                'Please set it to 0 to prevent object injection attacks.'
-            );
+            throw new \RuntimeException('Security Warning: "yaml.decode_php" is enabled in php.ini. '
+            . 'Please set it to 0 to prevent object injection attacks.');
         }
 
         set_error_handler(static function ($severity, $message, $_file, $_line) {

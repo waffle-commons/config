@@ -39,12 +39,12 @@ class YamlParserTest extends TestCase
     {
         // Arrange
         $content = <<<YAML
-        app:
-          name: 'WaffleApp'
-          env: test
-        database:
-          host: localhost
-        YAML;
+            app:
+              name: 'WaffleApp'
+              env: test
+            database:
+              host: localhost
+            YAML;
         $this->tempFile = $this->createTempFile($content);
         $parser = new YamlParser();
 
@@ -69,15 +69,15 @@ class YamlParserTest extends TestCase
     {
         // Arrange
         $content = <<<YAML
-        # Application configuration
-        app:
-          name: WaffleApp
+            # Application configuration
+            app:
+              name: WaffleApp
 
-        # Database connection
-        database:
-          host: 127.0.0.1
-          port: 3306
-        YAML;
+            # Database connection
+            database:
+              host: 127.0.0.1
+              port: 3306
+            YAML;
         $this->tempFile = $this->createTempFile($content);
         $parser = new YamlParser();
         $expected = [
@@ -113,13 +113,13 @@ class YamlParserTest extends TestCase
         // ou être interprétée différemment selon la spec YAML 1.1/1.2.
         // Ce test vérifie que le parser gère une structure de liste correcte.
         $content = <<<YAML
-        valid_key: valid_value
-        list:
-          - just a list item 1
-          - just a list item 2
-          - just a list item 3
-        another_valid_key: another_value
-        YAML;
+            valid_key: valid_value
+            list:
+              - just a list item 1
+              - just a list item 2
+              - just a list item 3
+            another_valid_key: another_value
+            YAML;
         $this->tempFile = $this->createTempFile($content);
         $parser = new YamlParser();
         $expected = [
