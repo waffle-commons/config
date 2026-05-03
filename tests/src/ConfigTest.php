@@ -29,32 +29,32 @@ class ConfigTest extends TestCase
         parent::setUp(); // Creates the test config directory and default app.yaml
 
         $yamlContentBool = <<<YAML
-        app:
-          feature_enabled: true
-          another_feature: false
-          not_a_bool: 'maybe'
-        YAML;
+            app:
+              feature_enabled: true
+              another_feature: false
+              not_a_bool: 'maybe'
+            YAML;
         $this->tempYamlFileBool = $this->testConfigDir . '/app_test_bool.yaml';
         file_put_contents($this->tempYamlFileBool, $yamlContentBool);
 
         $yamlContentArray = <<<YAML
-        database:
-          connections:
-            - mysql
-            - pgsql
-          not_an_array: 'just_string'
-        YAML;
+            database:
+              connections:
+                - mysql
+                - pgsql
+              not_an_array: 'just_string'
+            YAML;
         $this->tempYamlFileArray = $this->testConfigDir . '/app_test_array.yaml';
         file_put_contents($this->tempYamlFileArray, $yamlContentArray);
 
         $yamlContentEnv = <<<YAML
-        service:
-          api_key: '%env(TEST_API_KEY)%'
-          url: 'https://example.com'
-          missing_var: '%env(NON_EXISTENT_VAR)%'
-          nested:
-            value: '%env(NESTED_TEST_VAR)%'
-        YAML;
+            service:
+              api_key: '%env(TEST_API_KEY)%'
+              url: 'https://example.com'
+              missing_var: '%env(NON_EXISTENT_VAR)%'
+              nested:
+                value: '%env(NESTED_TEST_VAR)%'
+            YAML;
         $this->tempYamlFileEnv = $this->testConfigDir . '/app_test_env.yaml';
         file_put_contents($this->tempYamlFileEnv, $yamlContentEnv);
     }

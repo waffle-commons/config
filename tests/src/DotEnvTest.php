@@ -92,12 +92,12 @@ class DotEnvTest extends TestCase
     public function testLoadIgnoresCommentsAndInvalidLines(): void
     {
         $content = <<<ENV
-        # This is a comment
-        VALID_VAR=value
-          # Indented comment
-        INVALID_LINE_NO_EQUALS
+            # This is a comment
+            VALID_VAR=value
+              # Indented comment
+            INVALID_LINE_NO_EQUALS
 
-        ENV;
+            ENV;
         file_put_contents($this->tempDir . '/.env', $content);
 
         $dotEnv = new DotEnv($this->tempDir);
