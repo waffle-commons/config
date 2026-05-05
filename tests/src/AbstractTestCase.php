@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace WaffleTests\Commons\Config;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Random\RandomException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use RuntimeException;
 use Waffle\Commons\Config\Config;
 use Waffle\Commons\Contracts\Enum\Failsafe;
 
@@ -14,6 +16,9 @@ abstract class AbstractTestCase extends BaseTestCase
 {
     protected string $testConfigDir;
 
+    /**
+     * @throws RandomException|RuntimeException
+     */
     #[\Override]
     protected function setUp(): void
     {
@@ -21,8 +26,12 @@ abstract class AbstractTestCase extends BaseTestCase
 
         $this->testConfigDir = sys_get_temp_dir() . '/waffle_' . bin2hex(random_bytes(4));
         // Create a temporary config directory for isolated testing
-        if (!is_dir($this->testConfigDir)) {
-            mkdir($this->testConfigDir, 0o777, true);
+        if (
+            !is_dir($this->testConfigDir)
+            && !mkdir(directory: $this->testConfigDir, permissions: 0o777, recursive: true)
+            && !is_dir($this->testConfigDir)
+        ) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $this->testConfigDir));
         }
     }
 

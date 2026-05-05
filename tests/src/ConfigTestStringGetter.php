@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace WaffleTests\Commons\Config;
 
-use PHPUnit\Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Waffle\Commons\Config\Config;
 use Waffle\Commons\Config\Exception\InvalidConfigurationException;
@@ -16,7 +15,7 @@ use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 // Added use statement
 
 #[CoversClass(Config::class)] // Added CoversClass
-class ConfigTest extends TestCase
+class ConfigTestStringGetter extends TestCase
 {
     private ?string $tempYamlFileBool = null; // For bool test
     private ?string $tempYamlFileArray = null; // For array test
@@ -88,17 +87,26 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @throws InvalidConfigurationException|Exception
+     * @throws InvalidConfigurationException
      */
-    public function testFailsafeConfigIsLoaded(): void
+    public function testGetStringThrowsExceptionForInvalidType(): void
     {
-        // Act
-        $config = $this->createAndGetConfig(failsafe: Failsafe::ENABLED);
+        static::expectException(InvalidConfigurationException::class);
+        static::expectExceptionMessage(
+            'Configuration key "waffle.security.level" expects type "string", but got "integer".',
+        );
 
-        // Assert
-        // Check a key known to be missing in failsafe defaults
-        static::assertNull($config->getString(key: 'waffle.paths.services'));
-        // Check a key known to exist in failsafe defaults
-        static::assertSame(1, $config->getInt(key: 'waffle.security.level'));
+        // Define unique environment and filename
+        $envName = 'test_invalid_string';
+        $invalidYamlFileName = 'app_' . $envName . '.yaml';
+        $invalidYamlContent = "waffle:\n  security:\n    level: 123\n"; // Integer instead of expected string
+        $filePath = $this->testConfigDir . DIRECTORY_SEPARATOR . $invalidYamlFileName;
+        file_put_contents($filePath, $invalidYamlContent);
+        $this->tempFilesCreated[] = $filePath; // Track for cleanup
+
+        // Create Config directly using the temp file
+        $config = new Config(configDir: $this->testConfigDir, environment: $envName, failsafe: Failsafe::DISABLED);
+
+        $config->getString('waffle.security.level'); // Trying to get an int as string
     }
 }

@@ -8,7 +8,6 @@ use PHPUnit\Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Waffle\Commons\Config\Config;
 use Waffle\Commons\Config\Exception\InvalidConfigurationException;
-use Waffle\Commons\Contracts\Enum\Failsafe;
 use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 
 // Added for testing protected method
@@ -16,7 +15,7 @@ use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 // Added use statement
 
 #[CoversClass(Config::class)] // Added CoversClass
-class ConfigTest extends TestCase
+class ConfigTestBoolGetter extends TestCase
 {
     private ?string $tempYamlFileBool = null; // For bool test
     private ?string $tempYamlFileArray = null; // For array test
@@ -90,15 +89,34 @@ class ConfigTest extends TestCase
     /**
      * @throws InvalidConfigurationException|Exception
      */
-    public function testFailsafeConfigIsLoaded(): void
+    public function testGetBoolReturnsCorrectValue(): void
     {
-        // Act
-        $config = $this->createAndGetConfig(failsafe: Failsafe::ENABLED);
+        $config = new Config($this->testConfigDir, 'test_bool'); // Loads app_test_bool.yaml
+        static::assertTrue($config->getBool('app.feature_enabled'));
+        static::assertFalse($config->getBool('app.another_feature'));
+    }
 
-        // Assert
-        // Check a key known to be missing in failsafe defaults
-        static::assertNull($config->getString(key: 'waffle.paths.services'));
-        // Check a key known to exist in failsafe defaults
-        static::assertSame(1, $config->getInt(key: 'waffle.security.level'));
+    /**
+     * @throws InvalidConfigurationException|Exception
+     */
+    public function testGetBoolReturnsDefaultValue(): void
+    {
+        $config = new Config($this->testConfigDir, 'test_bool');
+        static::assertTrue($config->getBool('app.nonexistent_bool', true)); // Default true
+        static::assertFalse($config->getBool('app.nonexistent_bool')); // Default false (method default)
+        static::assertFalse($config->getBool('app.nonexistent_bool', false)); // Explicit default false
+    }
+
+    /**
+     * @throws InvalidConfigurationException|Exception
+     */
+    public function testGetBoolThrowsExceptionForInvalidType(): void
+    {
+        static::expectException(InvalidConfigurationException::class);
+        // Note: The error message was corrected to "bool"
+        static::expectExceptionMessage('Configuration key "app.not_a_bool" expects type "boolean", but got "string".');
+
+        $config = new Config($this->testConfigDir, 'test_bool');
+        $config->getBool('app.not_a_bool');
     }
 }

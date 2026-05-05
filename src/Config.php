@@ -128,7 +128,7 @@ final class Config implements ConfigInterface
      * @throws InvalidConfigurationException
      */
     #[\Override]
-    public function getBool(string $key, bool $default = false): bool
+    public function getBool(string $key, ?bool $default = null): ?bool
     {
         /** @var array|string|int|bool|null $value */
         $value = $this->get(key: $key);
@@ -158,7 +158,10 @@ final class Config implements ConfigInterface
             if (!is_array($value) || !array_key_exists($k, $value)) {
                 return null;
             }
-            /** @var array|string|int|bool $value */
+            /**
+             * @var array|string|int|bool $value
+             * @mago-ignore analysis:possibly-undefined-string-array-index
+             */
             $value = $value[$k];
         }
 
@@ -173,12 +176,16 @@ final class Config implements ConfigInterface
                 $this->resolveEnvPlaceholders($value);
                 // Continue to the next item after recursion to avoid processing an array as a string.
                 continue;
-            } elseif (is_string($value)) {
+            }
+            if (is_string($value)) {
                 $matches = [];
                 if (preg_match('/^%env\((.*)\)%$/', $value, $matches)) {
-                    $envVar = getenv($matches[1]);
-                    // Ensure we only assign string or null, not false from getenv().
-                    $value = is_string($envVar) ? $envVar : null;
+                    if (array_key_exists(key: 1, array: $matches)) {
+                        $envVar = getenv($matches[1]);
+                        // Ensure we only assign string or null, not false from getenv().
+                        // @mago-ignore analysis:reference-constraint-violation
+                        $value = is_string($envVar) ? $envVar : null;
+                    }
                 }
             }
         }
