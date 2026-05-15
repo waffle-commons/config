@@ -72,7 +72,7 @@ final class DotEnvCoverageTest extends TestCase
     #[DataProvider('truthyBoolProvider')]
     public function testAppDebugNormalizesTruthyBooleanValues(string $raw, string $expected): void
     {
-        file_put_contents($this->tempDir . '/.env', "APP_DEBUG=$raw");
+        file_put_contents($this->tempDir . '/.env', "APP_DEBUG={$raw}");
 
         new DotEnv($this->tempDir)->load();
 
@@ -82,7 +82,7 @@ final class DotEnvCoverageTest extends TestCase
     #[DataProvider('falsyBoolProvider')]
     public function testAppDebugNormalizesFalsyBooleanValues(string $raw, string $expected): void
     {
-        file_put_contents($this->tempDir . '/.env', "APP_DEBUG=$raw");
+        file_put_contents($this->tempDir . '/.env', "APP_DEBUG={$raw}");
 
         new DotEnv($this->tempDir)->load();
 
