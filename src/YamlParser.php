@@ -27,6 +27,10 @@ final class YamlParser implements YamlParserInterface
         }
 
         set_error_handler(static function ($severity, $message, $_file, $_line) {
+            /**
+             * @var int $severity
+             * @var string $message
+             */
             throw new InvalidConfigurationException($message, $severity);
         });
 
@@ -41,6 +45,7 @@ final class YamlParser implements YamlParserInterface
                 throw new RuntimeException('Failed to parse YAML file.');
             }
 
+            /** @var array $config */
             $config = yaml_parse_file(filename: $path);
 
             if (!$config) {

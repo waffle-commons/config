@@ -14,7 +14,7 @@ trait ParserTrait
             // Handle quoted strings first to prevent parsing their content
             str_starts_with($value, '"') && str_ends_with($value, '"'),
             str_starts_with($value, "'") && str_ends_with($value, "'"),
-                => substr($value, 1, -1),
+                => substr(string: $value, offset: 1, length: -1),
             // Handle strict booleans and nulls
             $lowercaseValue === 'true' => true,
             $lowercaseValue === 'false' => false,

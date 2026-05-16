@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace WaffleTests\Commons\Config;
 
-use PHPUnit\Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Waffle\Commons\Config\Config;
 use Waffle\Commons\Config\Exception\InvalidConfigurationException;
@@ -16,7 +15,7 @@ use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 // Added use statement
 
 #[CoversClass(Config::class)] // Added CoversClass
-class ConfigTest extends TestCase
+class ConfigTestIntGetter extends TestCase
 {
     private ?string $tempYamlFileBool = null; // For bool test
     private ?string $tempYamlFileArray = null; // For array test
@@ -88,17 +87,26 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @throws InvalidConfigurationException|Exception
+     * @throws InvalidConfigurationException
      */
-    public function testFailsafeConfigIsLoaded(): void
+    public function testGetIntThrowsExceptionForInvalidType(): void
     {
-        // Act
-        $config = $this->createAndGetConfig(failsafe: Failsafe::ENABLED);
+        static::expectException(InvalidConfigurationException::class);
+        static::expectExceptionMessage(
+            'Configuration key "waffle.paths.controllers" expects type "int", but got "string".',
+        );
 
-        // Assert
-        // Check a key known to be missing in failsafe defaults
-        static::assertNull($config->getString(key: 'waffle.paths.services'));
-        // Check a key known to exist in failsafe defaults
-        static::assertSame(1, $config->getInt(key: 'waffle.security.level'));
+        // Define unique environment and filename
+        $envName = 'test_invalid_int';
+        $invalidYamlFileName = 'app_' . $envName . '.yaml';
+        $invalidYamlContent = "waffle:\n  paths:\n    controllers: 'not-an-int'\n";
+        $filePath = $this->testConfigDir . DIRECTORY_SEPARATOR . $invalidYamlFileName;
+        file_put_contents($filePath, $invalidYamlContent);
+        $this->tempFilesCreated[] = $filePath; // Track for cleanup
+
+        // Create Config directly using the temp file
+        $config = new Config(configDir: $this->testConfigDir, environment: $envName, failsafe: Failsafe::DISABLED); // Ensure it tries to load
+
+        $config->getInt('waffle.paths.controllers'); // Trying to get a string as int
     }
 }

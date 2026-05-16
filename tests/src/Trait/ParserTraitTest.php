@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WaffleTests\Commons\Config\Trait;
 
+use Exception;
 use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Waffle\Commons\Config\Trait\ParserTrait;
@@ -63,6 +64,7 @@ final class ParserTraitTest extends TestCase
     /**
      * @param string $inputValue
      * @param mixed $expectedValue
+     * @throws Exception
      */
     #[DataProvider('valueProvider')]
     public function testParseValue(string $inputValue, mixed $expectedValue): void

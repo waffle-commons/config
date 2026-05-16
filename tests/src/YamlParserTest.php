@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace WaffleTests\Commons\Config;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use RuntimeException;
+use Waffle\Commons\Config\Exception\InvalidConfigurationException;
 use Waffle\Commons\Config\YamlParser;
 use WaffleTests\Commons\Config\AbstractTestCase as TestCase;
 
@@ -35,6 +37,9 @@ class YamlParserTest extends TestCase
         }
     }
 
+    /**
+     * @throws ExpectationFailedException|InvalidConfigurationException
+     */
     public function testParseFileWithSimpleStructure(): void
     {
         // Arrange
@@ -65,6 +70,9 @@ class YamlParserTest extends TestCase
         static::assertSame($expected, $result);
     }
 
+    /**
+     * @throws ExpectationFailedException|InvalidConfigurationException
+     */
     public function testParseFileWithCommentsAndEmptyLines(): void
     {
         // Arrange
@@ -92,6 +100,9 @@ class YamlParserTest extends TestCase
         static::assertSame($expected, $result);
     }
 
+    /**
+     * @throws ExpectationFailedException|InvalidConfigurationException
+     */
     public function testParseFileWithValueContainingSpecialCharacters(): void
     {
         // Arrange
@@ -107,6 +118,9 @@ class YamlParserTest extends TestCase
         static::assertSame($expected, $result);
     }
 
+    /**
+     * @throws ExpectationFailedException|InvalidConfigurationException
+     */
     public function testParseFileIgnoresInvalidLines(): void
     {
         // Note: Avec l'extension native YAML, une ligne invalide peut causer une erreur de parsing globale
@@ -139,10 +153,13 @@ class YamlParserTest extends TestCase
         static::assertSame($expected, $result);
     }
 
+    /**
+     * @throws ExpectationFailedException|InvalidConfigurationException
+     */
     public function testParseThrowsSecurityExceptionWhenDecodePhpEnabled(): void
     {
         // Simulation d'un environnement non sécurisé
-        ini_set('yaml.decode_php', '1');
+        ini_set(option: 'yaml.decode_php', value: '1');
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Security Warning');
@@ -151,6 +168,9 @@ class YamlParserTest extends TestCase
         $parser->parseFile('dummy.yaml');
     }
 
+    /**
+     * @throws ExpectationFailedException|InvalidConfigurationException
+     */
     public function testParseReturnsEmptyArrayIfFileDoesNotExist(): void
     {
         $parser = new YamlParser();
@@ -160,6 +180,9 @@ class YamlParserTest extends TestCase
         static::assertSame([], $result);
     }
 
+    /**
+     * @throws ExpectationFailedException|InvalidConfigurationException
+     */
     public function testParseReturnsEmptyArrayIfFileIsEmpty(): void
     {
         $this->tempFile = $this->createTempFile('');
@@ -171,6 +194,9 @@ class YamlParserTest extends TestCase
         static::assertSame([], $result);
     }
 
+    /**
+     * @throws ExpectationFailedException|InvalidConfigurationException
+     */
     public function testParseReturnsEmptyArrayIfYamlIsInvalid(): void
     {
         // Syntaxe YAML invalide
@@ -185,7 +211,10 @@ class YamlParserTest extends TestCase
 
     private function createTempFile(string $content): string
     {
-        $file = tempnam(sys_get_temp_dir(), 'waffle_config_test_');
+        $file = tempnam(directory: sys_get_temp_dir(), prefix: 'waffle_config_test_');
+        if (false === $file) {
+            return '';
+        }
         file_put_contents($file, $content);
         return $file;
     }
