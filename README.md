@@ -9,7 +9,10 @@
 Waffle Config Component
 =======================
 
-A robust configuration management library for PHP, supporting YAML files and environment variable substitution.
+> **Release:** `v0.1.0-beta0`
+> **PHP extension required:** `ext-yaml` (the native PECL YAML extension — *not* Symfony/yaml userland)
+
+A strict, typed-getter configuration loader. Reads YAML via the native `ext-yaml` extension with `yaml.decode_php = 0`, eliminating the PHP-deserialisation gadget surface that comes with userland parsers. Environment-specific overlays are applied via `array_replace_recursive`, and `%env(VAR)%` placeholders are resolved at load time.
 
 ## 📦 Installation
 
@@ -17,56 +20,75 @@ A robust configuration management library for PHP, supporting YAML files and env
 composer require waffle-commons/config
 ```
 
-## 🚀 Usage
+`ext-yaml` must be available in the PHP runtime. The `waffle-dev` Docker image ships with it pre-installed.
 
-### Basic Usage
+## 🧱 Surface
+
+| Class | Role |
+| :--- | :--- |
+| `Waffle\Commons\Config\Config` | `final` implementation of `ConfigInterface`. Typed getters: `getInt`, `getString`, `getArray`, `getBool`. |
+| `Waffle\Commons\Config\YamlParser` | `final` parser wrapper around `yaml_parse_file()` with safe defaults. |
+| `Waffle\Commons\Config\DotEnv` | `.env` file loader writing variables to `getenv()`. |
+| `Waffle\Commons\Config\Trait\ParserTrait` | Shared parse helpers. |
+| `Waffle\Commons\Config\Exception\InvalidConfigurationException` | Thrown when a key resolves to a value of the wrong type. |
+
+## 🚀 Usage
 
 ```php
 use Waffle\Commons\Config\Config;
+use Waffle\Commons\Contracts\Enum\Failsafe;
 
-// Initialize Config with the path to your configuration directory and current environment
-$config = new Config('/path/to/config/dir', 'prod');
+$config = new Config(
+    configDir: __DIR__ . '/config',
+    environment: 'prod',
+    failsafe: Failsafe::DISABLED,
+);
 
-// Retrieve a string value
-$dbHost = $config->getString('database.host');
-
-// Retrieve an integer with a default value
-$port = $config->getInt('database.port', 3306);
-
-// Retrieve a boolean
-$debug = $config->getBool('app.debug', false);
+$port    = $config->getInt('http.port', default: 8080);
+$debug   = $config->getBool('app.debug', default: false);
+$logs    = $config->getArray('logging.channels', default: []);
+$appName = $config->getString('app.name');
 ```
 
-### Environment Variables
+The constructor signature, verbatim from `src/Config.php`:
 
-You can reference environment variables in your YAML files using the `%env(VAR_NAME)%` syntax:
-
-```yaml
-# config/app.yaml
-database:
-  host: '%env(DB_HOST)%'
-  password: '%env(DB_PASSWORD)%'
+```php
+public function __construct(
+    string $configDir,
+    string $environment,
+    Failsafe $failsafe = Failsafe::DISABLED,
+)
 ```
 
-### Environment Specifics
+## 📁 File layout
 
-The loader automatically merges `app.yaml` with `app_{env}.yaml`. For example, if your environment is `prod`, it will load `app.yaml` and then override values with `app_prod.yaml`.
+```
+config/
+├── app.yaml          # base, always loaded
+├── app_dev.yaml      # environment overlay (applied if env = "dev")
+├── app_prod.yaml     # environment overlay
+└── app_test.yaml     # environment overlay
+```
 
-Testing
--------
+The base file is loaded first. Then `app_{environment}.yaml` is loaded if it exists, and merged on top of the base via `array_replace_recursive`. `%env(VAR_NAME)%` placeholders anywhere in the resolved tree are expanded by `getenv()`.
 
-To run the tests, use the following command:
+## 🛟 Failsafe mode
+
+When `Failsafe::ENABLED` is passed, `Config` skips file loading and seeds a minimal default tree (`waffle.security.level = 1`). This is used by the `ErrorHandlerMiddleware` boot path so that even a totally broken config still allows the error renderer to run.
+
+## 🐘 PHP 8.5 features used
+
+- Typed getters with `?int`/`?string`/`?array`/`?bool` return types.
+- `final class Config` and `final class YamlParser` — no subclassing.
+- Constructor property promotion.
+- `Failsafe` is an enum from `Waffle\Commons\Contracts\Enum\Failsafe` — backed-string semantics for safe defaulting.
+
+## 🧪 Testing
 
 ```bash
-composer tests
+docker exec -w /waffle-commons/config waffle-dev composer tests
 ```
 
-Contributing
-------------
+## 📄 License
 
-Contributions are welcome! Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
-
-License
--------
-
-This project is licensed under the MIT License. See the [LICENSE.md](./LICENSE.md) file for details.
+MIT — see [LICENSE.md](./LICENSE.md).
