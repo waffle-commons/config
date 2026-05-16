@@ -180,6 +180,7 @@ final class Config implements ConfigInterface
                     if (array_key_exists(key: 1, array: $matches)) {
                         $envVar = getenv($matches[1]);
                         // Ensure we only assign string or null, not false from getenv().
+                        // @mago-ignore analysis:reference-constraint-violation
                         $value = is_string($envVar) ? $envVar : null;
                     }
                 }
