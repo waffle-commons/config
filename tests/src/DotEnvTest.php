@@ -24,17 +24,8 @@ class DotEnvTest extends TestCase
 
     protected function tearDown(): void
     {
-        // Cleanup env vars
-        putenv('TEST_VAR');
-        unset($_ENV['TEST_VAR']);
-        unset($_SERVER['TEST_VAR']);
-        putenv('ANOTHER_VAR');
-        unset($_ENV['ANOTHER_VAR']);
-        unset($_SERVER['ANOTHER_VAR']);
-        putenv('EXISTING_VAR');
-        unset($_ENV['EXISTING_VAR']);
-        unset($_SERVER['EXISTING_VAR']);
-
+        // Beta 1: DotEnv no longer touches globals, so there is nothing process-env
+        // to unset here. Only the temp dir cleanup remains.
         if (is_dir($this->tempDir)) {
             $this->recursiveDelete($this->tempDir);
         }
@@ -61,12 +52,9 @@ class DotEnvTest extends TestCase
     {
         file_put_contents(filename: $this->tempDir . '/.env', data: 'TEST_VAR=foo');
 
-        $dotEnv = new DotEnv($this->tempDir);
-        $dotEnv->load();
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        static::assertSame('foo', getenv('TEST_VAR'));
-        static::assertSame('foo', $_ENV['TEST_VAR']);
-        static::assertSame('foo', $_SERVER['TEST_VAR']);
+        static::assertSame('foo', $loaded['TEST_VAR']);
     }
 
     /**
@@ -76,27 +64,25 @@ class DotEnvTest extends TestCase
     {
         file_put_contents(filename: $this->tempDir . '/.env.local', data: 'ANOTHER_VAR=bar');
 
-        $dotEnv = new DotEnv($this->tempDir);
-        $dotEnv->load();
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        static::assertSame('bar', getenv('ANOTHER_VAR'));
+        static::assertSame('bar', $loaded['ANOTHER_VAR']);
     }
 
     /**
+     * Within DotEnv, the first file (.env) wins when both .env and .env.local
+     * declare the same key. Process-env precedence is the AppKernelFactory's job.
+     *
      * @throws Exception
      */
-    public function testLoadDoesNotOverwriteExistingVariables(): void
+    public function testEnvFileWinsOverEnvLocalForSameKey(): void
     {
-        putenv('EXISTING_VAR=original');
-        $_ENV['EXISTING_VAR'] = 'original';
-        $_SERVER['EXISTING_VAR'] = 'original';
+        file_put_contents(filename: $this->tempDir . '/.env', data: 'EXISTING_VAR=from_env');
+        file_put_contents(filename: $this->tempDir . '/.env.local', data: 'EXISTING_VAR=from_local');
 
-        file_put_contents(filename: $this->tempDir . '/.env', data: 'EXISTING_VAR=new');
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        $dotEnv = new DotEnv($this->tempDir);
-        $dotEnv->load();
-
-        static::assertSame('original', getenv('EXISTING_VAR'));
+        static::assertSame('from_env', $loaded['EXISTING_VAR']);
     }
 
     /**
@@ -113,10 +99,10 @@ class DotEnvTest extends TestCase
             ENV;
         file_put_contents($this->tempDir . '/.env', $content);
 
-        $dotEnv = new DotEnv($this->tempDir);
-        $dotEnv->load();
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        static::assertSame('value', getenv('VALID_VAR'));
+        static::assertSame('value', $loaded['VALID_VAR']);
+        static::assertArrayNotHasKey('INVALID_LINE_NO_EQUALS', $loaded);
     }
 
     /**
@@ -126,15 +112,10 @@ class DotEnvTest extends TestCase
     {
         file_put_contents(filename: $this->tempDir . '/.env', data: "QUOTED='some value'");
 
-        $dotEnv = new DotEnv($this->tempDir);
-        $dotEnv->load();
+        $loaded = new DotEnv($this->tempDir)->load();
 
         // DotEnv implementation trim(..., '"\'') trims quotes from start/end.
-        static::assertSame('some value', getenv('QUOTED'));
-
-        // Cleanup
-        putenv('QUOTED');
-        unset($_ENV['QUOTED'], $_SERVER['QUOTED']);
+        static::assertSame('some value', $loaded['QUOTED']);
     }
 
     /**
@@ -143,11 +124,26 @@ class DotEnvTest extends TestCase
     public function testLoadHandlesMissingFilesGracefully(): void
     {
         // No files created in tempDir
-        $dotEnv = new DotEnv($this->tempDir);
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        // Should not throw
-        $dotEnv->load();
+        static::assertSame([], $loaded);
+    }
 
-        static::assertTrue(true);
+    /**
+     * @throws Exception
+     */
+    public function testLoadDoesNotTouchProcessEnvironment(): void
+    {
+        // Beta-1 contract: putenv() / $_ENV / $_SERVER must NOT be mutated.
+        $sentinelEnv = $_ENV;
+        $sentinelServer = $_SERVER;
+
+        file_put_contents($this->tempDir . '/.env', "BETA1_ISOLATION_PROBE=value\n");
+
+        new DotEnv($this->tempDir)->load();
+
+        static::assertSame($sentinelEnv, $_ENV, '$_ENV must remain untouched');
+        static::assertSame($sentinelServer, $_SERVER, '$_SERVER must remain untouched');
+        static::assertFalse(getenv('BETA1_ISOLATION_PROBE'), 'putenv() must not be called');
     }
 }

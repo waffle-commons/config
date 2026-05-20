@@ -156,41 +156,36 @@ final class ConfigCoverageTest extends TestCase
 
     public function testEnvPlaceholderIsResolvedWhenVariableExists(): void
     {
-        putenv('WAFFLE_TEST_ENV_VAR=resolved');
-        try {
-            file_put_contents($this->testConfigDir . '/app.yaml', "service:\n  token: '%env(WAFFLE_TEST_ENV_VAR)%'\n");
-            $config = new Config(configDir: $this->testConfigDir, environment: 'unused');
+        // Beta 1: env values come from the injected $env array, not from process env.
+        file_put_contents($this->testConfigDir . '/app.yaml', "service:\n  token: '%env(WAFFLE_TEST_ENV_VAR)%'\n");
+        $config = new Config(configDir: $this->testConfigDir, environment: 'unused', env: [
+            'WAFFLE_TEST_ENV_VAR' => 'resolved',
+        ]);
 
-            static::assertSame('resolved', $config->getString('service.token'));
-        } finally {
-            putenv('WAFFLE_TEST_ENV_VAR');
-        }
+        static::assertSame('resolved', $config->getString('service.token'));
     }
 
     public function testEnvPlaceholderIsResolvedRecursivelyForNestedArrays(): void
     {
-        putenv('WAFFLE_NESTED_VAR=deep-value');
-        try {
-            file_put_contents(
-                $this->testConfigDir . '/app.yaml',
-                "service:\n  nested:\n    token: '%env(WAFFLE_NESTED_VAR)%'\n",
-            );
-            $config = new Config(configDir: $this->testConfigDir, environment: 'unused');
+        file_put_contents(
+            $this->testConfigDir . '/app.yaml',
+            "service:\n  nested:\n    token: '%env(WAFFLE_NESTED_VAR)%'\n",
+        );
+        $config = new Config(configDir: $this->testConfigDir, environment: 'unused', env: [
+            'WAFFLE_NESTED_VAR' => 'deep-value',
+        ]);
 
-            static::assertSame('deep-value', $config->getString('service.nested.token'));
-        } finally {
-            putenv('WAFFLE_NESTED_VAR');
-        }
+        static::assertSame('deep-value', $config->getString('service.nested.token'));
     }
 
     public function testEnvPlaceholderResolvesToNullWhenVariableMissing(): void
     {
-        putenv('WAFFLE_DEFINITELY_UNSET_VAR'); // Ensure it's unset.
+        // The injected $env map omits the placeholder key — must resolve to null.
         file_put_contents(
             $this->testConfigDir . '/app.yaml',
             "service:\n  token: '%env(WAFFLE_DEFINITELY_UNSET_VAR)%'\n",
         );
-        $config = new Config(configDir: $this->testConfigDir, environment: 'unused');
+        $config = new Config(configDir: $this->testConfigDir, environment: 'unused', env: []);
 
         static::assertNull($config->getString('service.token'));
     }

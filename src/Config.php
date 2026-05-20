@@ -12,8 +12,18 @@ final class Config implements ConfigInterface
 {
     private array $parameters = [];
 
-    public function __construct(string $configDir, string $environment, Failsafe $failsafe = Failsafe::DISABLED)
-    {
+    /**
+     * @param array<string, string> $env Read-only env registry consulted when
+     *        resolving `%env(VAR)%` placeholders. Inject the merged DotEnv +
+     *        process environment from `AppKernelFactory`. Defaults to an empty
+     *        map — `%env(...)%` placeholders then resolve to `null`.
+     */
+    public function __construct(
+        string $configDir,
+        string $environment,
+        Failsafe $failsafe = Failsafe::DISABLED,
+        private readonly array $env = [],
+    ) {
         if ($failsafe === Failsafe::ENABLED) {
             $this->loadFailsafeDefaults();
             return;
@@ -178,10 +188,10 @@ final class Config implements ConfigInterface
                 $matches = [];
                 if (preg_match('/^%env\((.*)\)%$/', $value, $matches)) {
                     if (array_key_exists(key: 1, array: $matches)) {
-                        $envVar = getenv($matches[1]);
-                        // Ensure we only assign string or null, not false from getenv().
+                        // Beta-1: env values come from the injected registry — no `getenv()`
+                        // / `$_ENV` reads at request time. Unknown placeholders resolve to null.
                         // @mago-ignore analysis:reference-constraint-violation
-                        $value = is_string($envVar) ? $envVar : null;
+                        $value = $this->env[$matches[1]] ?? null;
                     }
                 }
             }
