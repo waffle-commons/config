@@ -32,11 +32,7 @@ final class DotEnvCoverageTest extends TestCase
     #[\Override]
     protected function tearDown(): void
     {
-        foreach (['APP_DEBUG', 'DEBUG'] as $var) {
-            putenv($var);
-            unset($_ENV[$var], $_SERVER[$var]);
-        }
-
+        // Beta 1: DotEnv no longer touches globals; only the temp dir needs cleanup.
         if (is_dir($this->tempDir)) {
             $files = new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator($this->tempDir, \RecursiveDirectoryIterator::SKIP_DOTS),
@@ -74,9 +70,9 @@ final class DotEnvCoverageTest extends TestCase
     {
         file_put_contents($this->tempDir . '/.env', "APP_DEBUG={$raw}");
 
-        new DotEnv($this->tempDir)->load();
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        static::assertSame($expected, getenv('APP_DEBUG'));
+        static::assertSame($expected, $loaded['APP_DEBUG']);
     }
 
     #[DataProvider('falsyBoolProvider')]
@@ -84,9 +80,9 @@ final class DotEnvCoverageTest extends TestCase
     {
         file_put_contents($this->tempDir . '/.env', "APP_DEBUG={$raw}");
 
-        new DotEnv($this->tempDir)->load();
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        static::assertSame($expected, getenv('APP_DEBUG'));
+        static::assertSame($expected, $loaded['APP_DEBUG']);
     }
 
     public function testDebugVariableIsAlsoNormalized(): void
@@ -94,9 +90,9 @@ final class DotEnvCoverageTest extends TestCase
         // Both APP_DEBUG and DEBUG are in EXPECTED_TYPES — verify the second key too.
         file_put_contents($this->tempDir . '/.env', 'DEBUG=yes');
 
-        new DotEnv($this->tempDir)->load();
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        static::assertSame('1', getenv('DEBUG'));
+        static::assertSame('1', $loaded['DEBUG']);
     }
 
     public function testInvalidBooleanValueIsRejected(): void
@@ -114,11 +110,8 @@ final class DotEnvCoverageTest extends TestCase
         // EXPECTED_TYPES only contains APP_DEBUG / DEBUG; any other key should be passed verbatim.
         file_put_contents($this->tempDir . '/.env', 'OTHER_KEY=raw-value');
 
-        new DotEnv($this->tempDir)->load();
+        $loaded = new DotEnv($this->tempDir)->load();
 
-        static::assertSame('raw-value', getenv('OTHER_KEY'));
-
-        putenv('OTHER_KEY');
-        unset($_ENV['OTHER_KEY'], $_SERVER['OTHER_KEY']);
+        static::assertSame('raw-value', $loaded['OTHER_KEY']);
     }
 }

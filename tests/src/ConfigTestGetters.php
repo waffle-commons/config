@@ -169,12 +169,13 @@ class ConfigTestGetters extends TestCase
      */
     public function testResolveEnvPlaceholders(): void
     {
-        // Set environment variables for the test
-        putenv('TEST_API_KEY=abcdef12345');
-        putenv('NESTED_TEST_VAR=nested_value');
-        // NON_EXISTENT_VAR is intentionally not set
-
-        $config = new Config($this->testConfigDir, 'test_env'); // Loads app_test_env.yaml
+        // Beta 1: env values come from the injected $env array, not from process env.
+        // NON_EXISTENT_VAR is intentionally not provided.
+        // @mago-ignore lint:no-literal-password — these are test fixtures, not real secrets.
+        $config = new Config(configDir: $this->testConfigDir, environment: 'test_env', env: [
+            'TEST_API_KEY' => 'abcdef12345',
+            'NESTED_TEST_VAR' => 'nested_value',
+        ]);
 
         // Assert that placeholders were replaced
         static::assertSame('abcdef12345', $config->getString('service.api_key'));
@@ -183,9 +184,5 @@ class ConfigTestGetters extends TestCase
 
         // Assert that a missing env variable results in null
         static::assertNull($config->getString('service.missing_var'));
-
-        // Clean up env variables
-        putenv('TEST_API_KEY');
-        putenv('NESTED_TEST_VAR');
     }
 }
