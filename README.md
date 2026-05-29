@@ -9,7 +9,7 @@
 Waffle Config Component
 =======================
 
-> **Release:** `v0.1.0-beta1` *(Phase 0 hardening: no process-env mutation)*
+> **Release:** `v0.1.0-beta2` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md) &nbsp;|&nbsp; *Beta-1 hardening retained: no process-env mutation*
 > **PHP extension required:** `ext-yaml` (the native PECL YAML extension — *not* Symfony/yaml userland)
 
 A strict, typed-getter configuration loader. Reads YAML via the native `ext-yaml` extension with `yaml.decode_php = 0`, eliminating the PHP-deserialisation gadget surface that comes with userland parsers. Environment-specific overlays are applied via `array_replace_recursive`, and `%env(VAR)%` placeholders are resolved at load time **against a read-only env registry injected through the constructor** — never against `getenv()` or `$_ENV` directly (Beta 1 hardening for FrankenPHP worker-mode safety).
@@ -117,6 +117,21 @@ When `Failsafe::ENABLED` is passed, `Config` skips file loading and seeds a mini
 - `final class Config` and `final class YamlParser` — no subclassing.
 - Constructor property promotion.
 - `Failsafe` is an enum from `Waffle\Commons\Contracts\Enum\Failsafe` — backed-string semantics for safe defaulting.
+
+## 🧭 Architectural boundary (`mago guard`)
+
+An active dependency **perimeter** is enforced on every CI run by `vendor/bin/mago guard` (bundled into `composer mago`; zero baselines). The rules live in [`mago.toml`](./mago.toml) under `[guard.perimeter]` — a forbidden `use` statement fails the build, not a reviewer.
+
+Production code under `Waffle\Commons\Config` may depend **only** on:
+
+- `Waffle\Commons\Config\**` — itself
+- `Waffle\Commons\Contracts\**` — the shared contracts package, the **only** Waffle dependency permitted
+- `Psr\**` — PSR interfaces
+- `@global` + `Psl\**` — PHP core (including `ext-yaml`) and the PHP Standard Library
+
+Test code under `WaffleTests\Commons\Config` is unrestricted (`@all`). Structural rules are guarded too: interfaces must be named `*Interface`, `Exception\**` classes must end in `*Exception`, and any `Enum\**` namespace may hold only `enum` declarations.
+
+Contract-first, component-agnostic by construction: components compose through `waffle-commons/contracts`, never directly through one another.
 
 ## 🧪 Testing
 
