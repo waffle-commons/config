@@ -10,7 +10,7 @@
 Waffle Config Component
 =======================
 
-> **Release:** `v0.1.0-beta2` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md) &nbsp;|&nbsp; *Beta-1 hardening retained: no process-env mutation*
+> **Release:** `0.1.0-beta3` &nbsp;|&nbsp; [`CHANGELOG.md`](./CHANGELOG.md) &nbsp;|&nbsp; *Beta-1 hardening retained: no process-env mutation*
 > **PHP extension required:** `ext-yaml` (the native PECL YAML extension — *not* Symfony/yaml userland)
 
 A strict, typed-getter configuration loader. Reads YAML via the native `ext-yaml` extension with `yaml.decode_php = 0`, eliminating the PHP-deserialisation gadget surface that comes with userland parsers. Environment-specific overlays are applied via `array_replace_recursive`, and `%env(VAR)%` placeholders are resolved at load time **against a read-only env registry injected through the constructor** — never against `getenv()` or `$_ENV` directly (Beta 1 hardening for FrankenPHP worker-mode safety).
