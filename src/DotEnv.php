@@ -73,7 +73,7 @@ final readonly class DotEnv
         }
 
         foreach ($lines as $line) {
-            if (str_starts_with(trim($line), '#')) {
+            if (str_starts_with(mb_trim($line), '#')) {
                 continue;
             }
 
@@ -83,11 +83,11 @@ final readonly class DotEnv
 
             // @mago-ignore analysis:possibly-undefined-int-array-index
             [$key, $value] = explode(separator: '=', string: $line, limit: 2);
-            $key = trim(string: $key);
+            $key = mb_trim(string: $key);
             if (!is_string(value: $value)) {
                 $value = '';
             }
-            $value = trim(string: $value);
+            $value = mb_trim(string: $value);
             $value = trim(string: $value, characters: '"\'');
             $value = $this->validateAndCast($key, $value);
 
