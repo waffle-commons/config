@@ -177,23 +177,22 @@ final class Config implements ConfigInterface
 
     private function resolveEnvPlaceholders(array &$config): void
     {
-        /** @var array|string|int|bool $value */
-        foreach ($config as &$value) {
+        foreach ($config as $key => $value) {
             if (is_array($value)) {
                 $this->resolveEnvPlaceholders($value);
-                // Continue to the next item after recursion to avoid processing an array as a string.
+                // Write the recursively-resolved sub-tree back. Iterating by key
+                // (not by reference) keeps each slot from being constrained to a
+                // single type, so the string branch can replace it cleanly.
+                $config[$key] = $value;
+
                 continue;
             }
-            if (is_string($value)) {
-                $matches = [];
-                if (preg_match('/^%env\((.*)\)%$/', $value, $matches)) {
-                    if (array_key_exists(key: 1, array: $matches)) {
-                        // Beta-1: env values come from the injected registry — no `getenv()`
-                        // / `$_ENV` reads at request time. Unknown placeholders resolve to null.
-                        // @mago-ignore analysis:reference-constraint-violation
-                        $value = $this->env[$matches[1]] ?? null;
-                    }
-                }
+
+            $matches = [];
+            if (is_string($value) && preg_match('/^%env\((.*)\)%$/', $value, $matches) === 1) {
+                // Beta-1: env values come from the injected registry — no `getenv()`
+                // / `$_ENV` reads at request time. Unknown placeholders resolve to null.
+                $config[$key] = $this->env[$matches[1] ?? ''] ?? null;
             }
         }
     }
