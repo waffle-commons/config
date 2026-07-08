@@ -5,6 +5,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Released in lockstep with the Waffle Commons umbrella tag.
 
+## [0.1.0-beta5] — 2026-07-08
+
+**Theme: zero-suppression analysis.**
+
+### Changed
+- `Config::resolveEnvPlaceholders()` now iterates the tree by key (`$config[$key] = …`) instead of by reference, removing the `@mago-ignore analysis:reference-constraint-violation` suppression. The recursively-resolved sub-tree is written back per slot, so the string branch can replace a value cleanly without the reference being pinned to a single type (POLICY-05).
+- `DotEnv::load()` now splits each line into `$parts` and reads `$parts[1] ?? ''`, with the pre-existing `=` guard keeping the access total. This drops the `@mago-ignore analysis:possibly-undefined-int-array-index` suppression — both analyzer ignores in this component are now gone (POLICY-05).
+- Enabled the `cyclomatic-complexity` linter rule in [`mago.toml`](./mago.toml) with `threshold = 50`.
+
 ## [0.1.0-beta4] — 2026-06-13
 
 ### Changed

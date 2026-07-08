@@ -81,13 +81,11 @@ final readonly class DotEnv
                 continue;
             }
 
-            // @mago-ignore analysis:possibly-undefined-int-array-index
-            [$key, $value] = explode(separator: '=', string: $line, limit: 2);
-            $key = mb_trim(string: $key);
-            if (!is_string(value: $value)) {
-                $value = '';
-            }
-            $value = mb_trim(string: $value);
+            // The `str_contains($line, '=')` guard above guarantees a value
+            // half; the `?? ''` keeps it total for the analyzer (no suppression).
+            $parts = explode(separator: '=', string: $line, limit: 2);
+            $key = mb_trim(string: $parts[0]);
+            $value = mb_trim(string: $parts[1] ?? '');
             $value = trim(string: $value, characters: '"\'');
             $value = $this->validateAndCast($key, $value);
 
