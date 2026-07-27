@@ -195,18 +195,23 @@ class YamlParserTest extends TestCase
     }
 
     /**
-     * @throws ExpectationFailedException|InvalidConfigurationException
+     * Regression test for the fail-secure violation where a malformed-YAML parse
+     * failure — surfaced by the parser's own `InvalidConfigurationException`
+     * (raised from the warning-to-exception error handler) — used to be caught
+     * by a blanket `catch (Throwable)` and silently downgraded to `[]`. Fail
+     * closed means this exception MUST propagate to the caller, not be swallowed.
+     *
+     * @throws ExpectationFailedException
      */
-    public function testParseReturnsEmptyArrayIfYamlIsInvalid(): void
+    public function testParseThrowsInvalidConfigurationExceptionWhenYamlIsMalformed(): void
     {
-        // Syntaxe YAML invalide
+        // Invalid YAML syntax: an unclosed flow sequence.
         $this->tempFile = $this->createTempFile('invalid_key: [ unclosed sequence');
         $parser = new YamlParser();
 
-        // L'extension lance un warning, transformé en exception par set_error_handler, puis catché
-        $result = $parser->parseFile($this->tempFile);
+        $this->expectException(InvalidConfigurationException::class);
 
-        static::assertSame([], $result);
+        $parser->parseFile($this->tempFile);
     }
 
     private function createTempFile(string $content): string

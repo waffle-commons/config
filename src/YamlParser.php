@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Waffle\Commons\Config;
 
 use RuntimeException;
-use Throwable;
 use Waffle\Commons\Config\Exception\InvalidConfigurationException;
 use Waffle\Commons\Contracts\Parser\YamlParserInterface;
 
@@ -17,6 +16,15 @@ final class YamlParser implements YamlParserInterface
 {
     /**
      * Parses a YAML file and returns its content as a PHP array.
+     *
+     * Missing, unreadable, or empty files are lenient — `Config` already
+     * gates calls behind `file_exists()`, so `[]` is a legitimate "nothing
+     * to load" signal. An actual malformed-YAML parse failure is not: it is
+     * surfaced as `InvalidConfigurationException` (this parser's own
+     * fail-secure signal, raised from the warning-to-exception error
+     * handler below) and MUST propagate uncaught, never be swallowed.
+     *
+     * @throws InvalidConfigurationException on malformed YAML content.
      */
     #[\Override]
     public function parseFile(string $path): array
@@ -51,7 +59,7 @@ final class YamlParser implements YamlParserInterface
             if (!$config) {
                 throw new RuntimeException('Failed to parse YAML file.');
             }
-        } catch (Throwable $_) {
+        } catch (RuntimeException $_) {
             return [];
         } finally {
             restore_error_handler();
