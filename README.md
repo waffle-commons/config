@@ -140,6 +140,13 @@ Contract-first, component-agnostic by construction: components compose through `
 docker exec -w /waffle-commons/config waffle-dev composer tests
 ```
 
+## 📚 Documentation
+
+Full guides live in the central Diátaxis documentation tree:
+
+- [Reference — `waffle-commons/config`](https://github.com/waffle-commons/documentation/blob/main/reference/config.md)
+- [Documentation home](https://github.com/waffle-commons/documentation)
+
 ## 📄 License
 
 MIT — see [LICENSE.md](./LICENSE.md).
