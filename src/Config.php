@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Waffle\Commons\Config;
 
+use IgorPhp\IgorBundle\Attribute\WorkerSafe;
 use Waffle\Commons\Config\Exception\InvalidConfigurationException;
 use Waffle\Commons\Contracts\Config\ConfigInterface;
 use Waffle\Commons\Contracts\Enum\Failsafe;
 
 final class Config implements ConfigInterface
 {
+    #[WorkerSafe(
+        scope: 'boot-time',
+        reason: 'populated exclusively from __construct() via loadFailsafeDefaults()/loadConfigurationFiles(); read-only for the worker lifetime, never written per request',
+    )]
     private array $parameters = [];
 
     /**

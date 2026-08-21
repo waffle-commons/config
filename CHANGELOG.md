@@ -5,12 +5,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Released in lockstep with the Waffle Commons umbrella tag.
 
-## [0.1.0-beta6] — 2026-08-03
+## [0.1.0-beta6] — 2026-08-22
 
 **Theme: fail-secure configuration parsing.**
 
 ### Fixed
 - `YamlParser` no longer swallows its own fail-secure exception: malformed YAML propagates `InvalidConfigurationException` instead of silently degrading to an empty (permissive-default) configuration (Beta6 audit FIX-01).
+
+### Changed
+- **Worker-safety audit coverage.** This component was never audited by `wfl igor`: it had no `igor-php/igor-php` in `require-dev`, so the ecosystem runner silently skipped it for four releases. It now ships `igor.json`, the `composer igor` script, and the dev dependency, and is part of the 0-KO gate.
+- **Worker-safety annotation.** `Config::$parameters` is declared `#[WorkerSafe(scope: 'boot-time')]`: it is populated exclusively from the constructor and never written per request.
 
 ### Documentation
 - The README now links into the central Diátaxis documentation tree (DOC-02).
