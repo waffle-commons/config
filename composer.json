@@ -1,6 +1,6 @@
 {
     "name": "waffle-commons/config",
-    "description": "Config component for Waffle framework.",
+    "description": "YAML configuration for Waffle Commons: environment-layered parameter loading with %env()% placeholder resolution, fail-secure parsing, and boot-time freezing for FrankenPHP workers. Requires ext-yaml.",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -30,13 +30,15 @@
         "carthage-software/mago": "^1.29",
         "vimeo/psalm": "^6.16",
         "php-mock/php-mock-phpunit": "^2.15",
-        "cyclonedx/cyclonedx-php-composer": "^6.2"
+        "cyclonedx/cyclonedx-php-composer": "^6.2",
+        "igor-php/igor-php": "^0.7.0"
     },
     "scripts": {
         "formatter": "vendor/bin/mago fmt",
         "linter": "vendor/bin/mago lint",
         "analyzer": "vendor/bin/mago analyze",
         "guard": "vendor/bin/mago guard",
+        "igor": "vendor/bin/igor-php .",
         "phpunit": "vendor/bin/phpunit --log-junit var/data/phpunit-coverage/junit.xml --coverage-html var/data/phpunit-coverage",
         "benchmark": [
             "Composer\\Config::disableProcessTimeout",
