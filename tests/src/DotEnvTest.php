@@ -40,7 +40,7 @@ class DotEnvTest extends TestCase
 
         foreach ($files as $fileinfo) {
             $todo = $fileinfo->isDir() ? 'rmdir' : 'unlink';
-            $todo($fileinfo->getRealPath());
+            $todo($fileinfo->getPathname());
         }
         rmdir($dir);
     }
