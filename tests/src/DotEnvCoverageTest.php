@@ -39,7 +39,7 @@ final class DotEnvCoverageTest extends TestCase
                 \RecursiveIteratorIterator::CHILD_FIRST,
             );
             foreach ($files as $f) {
-                ($f->isDir() ? 'rmdir' : 'unlink')($f->getRealPath());
+                ($f->isDir() ? 'rmdir' : 'unlink')($f->getPathname());
             }
             rmdir($this->tempDir);
         }
